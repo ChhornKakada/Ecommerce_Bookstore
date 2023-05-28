@@ -1,0 +1,56 @@
+[
+  {
+    "pictureUrl": "https://m.media-amazon.com/images/I/81xqWPg80+L._AC_UF1000,1000_QL80_.jpg",
+    "title": "The Awe of God",
+    "author": "John Bevere",
+    "price": "10$",
+    "isbn": " 9781400336722",
+    "genre": "novel",
+    "publishedDate": "21-02-2023"
+  },
+  {
+    "pictureUrl": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1663869260l/61294937.jpg",
+    "title": "The Adventures of Amina Al-Sirafi",
+    "author": "Shannon Chakraborty",
+    "price": "12$",
+    "isbn": " 9780008381363",
+    "genre": " Adventure fiction",
+    "publishedDate": "28-02-2023"
+  },
+  {
+    "pictureUrl": "https://m.media-amazon.com/images/I/71KGi4O+u7L._AC_UF894,1000_QL80_.jpg",
+    "title": "Next in Line",
+    "author": "Jeffrey Archer",
+    "price": "14$",
+    "isbn": " 9780008474324",
+    "genre": "novel",
+    "publishedDate": "27-09-2022"
+  },
+  {
+    "pictureUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3dO9dMvYMRms3LCS672Z6e6lilnIFrklwkbRG_WLDUBEf6GLW",
+    "title": "I have lost my way",
+    "author": "Gayle Forman",
+    "price": "16$",
+    "isbn": " 9781400336722",
+    "genre": "Fiction",
+    "publishedDate": "27-03-2018"
+  },
+  {
+    "pictureUrl": "https://m.media-amazon.com/images/I/612BYerla-L._AC_UF894,1000_QL80_.jpg",
+    "title": "Fairy Tale",
+    "author": "Stephen King",
+    "price": "10$",
+    "isbn": " 9781668002179",
+    "genre": "Fantasy Fiction",
+    "publishedDate": "06-09-2022"
+  },
+  {
+    "pictureUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSPxMPUzwH-0cUd154h-lKCz0iTWlATwk9xPGfd6pBBK6FeXGCi",
+    "title": "Who Moved My Cheese?",
+    "author": "Spencer Johnson",
+    "price": "105$",
+    "isbn": " 9781400336722",
+    "genre": "Psychology",
+    "publishedDate": "08-09-1998"
+  }
+]
