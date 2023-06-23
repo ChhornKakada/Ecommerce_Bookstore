@@ -1,14 +1,121 @@
 <template>
-  <div>This is a Contact page.</div>
-  <img src="/src/assets/images/icons8-facebook.svg" alt="" class="text-black hover:bg-black">
-  <svg class="hover:text-black bg-red-500 rounded-[999px]" fill="#2349f9" height="44" width="44" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-143 145 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M113,145c-141.4,0-256,114.6-256,256s114.6,256,256,256s256-114.6,256-256S254.4,145,113,145z M272.8,560.7 c-20.8,20.8-44.9,37.1-71.8,48.4c-27.8,11.8-57.4,17.7-88,17.7c-30.5,0-60.1-6-88-17.7c-26.9-11.4-51.1-27.7-71.8-48.4 c-20.8-20.8-37.1-44.9-48.4-71.8C-107,461.1-113,431.5-113,401s6-60.1,17.7-88c11.4-26.9,27.7-51.1,48.4-71.8 c20.9-20.8,45-37.1,71.9-48.5C52.9,181,82.5,175,113,175s60.1,6,88,17.7c26.9,11.4,51.1,27.7,71.8,48.4 c20.8,20.8,37.1,44.9,48.4,71.8c11.8,27.8,17.7,57.4,17.7,88c0,30.5-6,60.1-17.7,88C309.8,515.8,293.5,540,272.8,560.7z"></path> <path d="M146.8,313.7c10.3,0,21.3,3.2,21.3,3.2l6.6-39.2c0,0-14-4.8-47.4-4.8c-20.5,0-32.4,7.8-41.1,19.3 c-8.2,10.9-8.5,28.4-8.5,39.7v25.7H51.2v38.3h26.5v133h49.6v-133h39.3l2.9-38.3h-42.2v-29.9C127.3,317.4,136.5,313.7,146.8,313.7z"></path> </g> </g></svg>
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="" viewBox="0 0 16 16">
-  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-</svg>
+  <div class="w-[80%] justify-center mx-auto lg:flex py-6">
+    <!-- contact us -->
+    <div class="w-full sm:w-[90%] lg:w-full lg:mx-0 mx-auto lg:pr-[5%]">
+      <h1 class="text-[2rem] font-medium md:text-[2.5rem] tracking-wider py-6">
+        Contact Us
+      </h1>
+      <p class="text-gray-600">
+        Welcome to our Contact page! We're here to assist you in any way we can.
+        If you have any questions, inquiries, or feedback, please don't hesitate
+        to reach out to us. Fill out the form below, and our dedicated team will
+        get back to you as soon as possible. We appreciate your interest and
+        look forward to hearing from you.
+      </p>
+
+      <!-- contact -->
+      <div class="sm:pl-6 md:pl-12 py-10 lg:pl-6 xl:pl-12">
+        <div class="flex gap-2 py-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <a
+            href="https://goo.gl/maps/Puy8zvcR7Ve9amYG8"
+            class="hover:text-blue-700 hover:underline"
+            >GX62+W5W, Saint 369, Phnom Penh 12358</a
+          >
+        </div>
+        <div class="flex gap-2 py-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <p>+855 17702078</p>
+        </div>
+        <div class="flex gap-2 py-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"
+            />
+            <path
+              d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
+            />
+          </svg>
+          <p>chhornkakada22@gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- send email -->
+    <form class="w-full sm:w-[90%] lg:w-full lg:mx-0 mx-auto lg:my-6 lg:pt-4">
+      <div class="">
+        <label for="name" class="text-[1.2rem] font-medium">Name</label> <br />
+        <input
+          class="w-full bg-white border-2 pl-4 rounded-lg py-2 mt-2"
+          required
+          pattern="[a-z]{2,20}"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Chhorn Kakada"
+        />
+      </div>
+
+      <!-- for email -->
+      <div class="pt-6">
+        <label for="email" class="text-[1.2rem] font-medium">Email</label>
+        <br />
+        <input
+          class="w-full bg-white border-2 pl-4 rounded-lg py-2 mt-2"
+          required
+          type="email"
+          id="email"
+          name="email"
+          placeholder="chhornkakada22@gmail.com"
+        />
+      </div>
+      <!-- for message -->
+      <div class="pt-6">
+        <label for="message" class="text-[1.2rem] font-medium">Message</label>
+        <br />
+        <textarea
+          class="w-full bg-white border-2 pl-4 rounded-lg py-2 mt-2"
+          id="message"
+          rows="5"
+          placeholder="Your message"
+        ></textarea>
+      </div>
+      <button class="bg-[#337DF9] py-2 px-4 text-white rounded-md mt-4">
+        Send Message
+      </button>
+    </form>
+  </div>
 </template>
 
 <style>
-  svg:hover {
-    color: red;
-  }
+svg:hover {
+  color: red;
+}
 </style>

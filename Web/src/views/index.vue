@@ -1,54 +1,67 @@
-<!-- <script>
-export default {
-  data() {
-    var MenuList: 
-  },
-  methods: {
-    showMenuList() {
+<script>
+  import { ref } from 'vue';
 
+  export default {
+    setup() {
+      const isOpen = ref(false);
+
+      const open = () => {
+        isOpen.value = !isOpen.value;
+      };
+
+      return {
+        isOpen,
+        open
+      };
     }
   }
-};
-</script> -->
+</script>
+
 
 
 <template>
-  <!-- bg-blue-500 sm:bg-black md:bg-green-500 lg:bg-red-500 
-    xl:bg-[#D3662D] 2xl:bg-[#FFFF00] 3xl:bg-[#A020F0] -->
-  <header class="">
-    <nav class="flex w-full text-[1.3rem] tracking-widest shadow-lg pt-4 bg-white px-10 md:px-20">
-      <!-- Logo -->
-      <div class="md:flex w-1/3 md:w-4/5 lg:w-[70%] ">
-        <div class="flex items-center w-[60%] self-center justify-between md:w-1/6  h-[4rem]">
-          <h1 class="text-[2rem] tracking-wider text-[#102A42]">D2K</h1>
+  <header class="shadow-lg bg-white w-full" >
+    <nav class="flex w-[80%] text-[1.3rem] tracking-widest pt-4 mx-auto justify-between">
+      <!-- left side -->
+      <div class="md:flex md:w-4/5 lg:w-[70%] ">
+
+        <div class="flex gap-4 items-center">
+          <!-- menu -->
+          <button class=" md:hidden flex items-center justify-end h-[4rem] "
+          @click="open">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+              <path fill-rule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+          <!-- logo -->
+          <div class="flex items-center self-center justify-between md:w-1/6  h-[4rem]">
+            <h1 class="text-[2rem] tracking-wider text-[#102A42]">D2K</h1>
+          </div>
         </div>
-        <div class="hidden md:flex md:w-5/6 justify-evenly items-center MenuList">
-          <div>
-            <RouterLink to="/">Home</RouterLink>
+        
+        <div :class="isOpen  ? '' : 'hidden' " class="py-4 md:py-0 md:flex md:w-5/6 justify-evenly items-center MenuList">
+
+          <div class="hover:text-[#FF0000] hover:underline">
+            <RouterLink to="/" @click="open">Home</RouterLink >
           </div>
-          <div>
-            <RouterLink to="/about">About</RouterLink>
+          <div class="hover:text-[#FF0000] hover:underline">
+            <RouterLink to="/shop" @click="open">Shop</RouterLink>
           </div>
-          <div>
-            <RouterLink to="/shop">Shop</RouterLink>
+          <div class="hover:text-[#FF0000] hover:underline">
+            <RouterLink to="/about" @click="open">About</RouterLink>
           </div>
-          <div>
-            <RouterLink to="/event">Event</RouterLink>
+          <div class="hover:text-[#FF0000] hover:underline">
+            <RouterLink to="/event" @click="open">Event</RouterLink>
           </div>
-          <div>
-            <RouterLink to="/contact">Contact</RouterLink>
+          <div class="hover:text-[#FF0000] hover:underline">
+            <RouterLink to="/contact" @click="open">Contact</RouterLink>
           </div>
         </div>
       </div>
 
-      <!-- menu -->
-      <button class="md:hidden flex w-1/3 items-center justify-end h-[4rem]">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
-          <path fill-rule="evenodd"
-            d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-            clip-rule="evenodd" />
-        </svg>
-      </button>
+      
 
       <!-- checkout -->
       <div class="flex items-center gap-4 md:gap-10 w-1/3 md:w-1/5 justify-end  h-[4rem] lg:w-[30%]">
@@ -59,7 +72,10 @@ export default {
           </svg>
 
         </button>
-        <button @click="$emit('login')">Login</button>
+
+        <button>
+          <RouterLink to="/login">Login</RouterLink>
+        </button>
       </div>
     </nav>
   </header>

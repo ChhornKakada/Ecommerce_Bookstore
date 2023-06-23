@@ -1,10 +1,9 @@
 <template>
   <div class="bg-[#1B1E2B] py-10">
     <footer class="w-[80%] mx-auto text-[#F1F5F8]">
-      <div class="text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sequi quod sapiente recusandae aliquid adipisci minima
-        exercitationem maiores fugiat, officia nihil ducimus iure tempore reprehenderit dicta mollitia nobis nulla
-        perspiciatis!
+      <div class="text-center mb-1 w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] mx-auto">
+        <h1 class="text-[2rem]">D2K Bookstore</h1>
+        <p>Welcome to D2K, your go-to destination for book lovers seeking an exceptional online shopping experience. With a diverse selection of books, intuitive browsing, and a passionate community, D2K is your gateway to endless literary adventures.</p>
       </div>
 
       <div class="flex justify-center gap-5 my-10 ">
@@ -38,7 +37,7 @@
         </button>
       </div>
 
-      <div class="justify-between w-full lg:flex gap-6 md:gap-10">
+      <!-- <div class="justify-between w-full lg:flex gap-6 md:gap-10">
         <div class="flex w-full lg:w-3/4 gap-6 md:gap-12">
           <div class="content w-1/3 ">
             <h1 class="md:text-[1.2rem] font-medium mb-2">
@@ -75,7 +74,7 @@
             transaction
             within the framework of a common project (used vehicle purchase-sale, real estate operation, etc.).</p>
         </div>
-      </div>
+      </div> -->
 
     </footer>
   </div>
