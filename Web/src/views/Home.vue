@@ -1,4 +1,4 @@
-<script setup>
+<script>
 // import cateImg from '../components/homePage/categoryImg.vue'
 import headerBox from "../components/homePage/HeaderBox.vue";
 // import latestBook from '../components/homePage/LatestArrivalBook.vue'
@@ -8,9 +8,25 @@ import { onMounted, ref } from "vue";
 
 // to using pror u need to use reactive v-bind
 
-const books = ref([]);
-const latestBooks = ref([]);
-const genres = ref([]);
+// const books = ref([]);
+// const latestBooks = ref([]);
+// const genres = ref([]);
+
+export default {
+  components: {
+    headerBox,
+    book,
+  },
+
+  methods: {
+    openCheckoutPopup() {
+      document.getElementById("checkoutPopup").style.display = "block";
+    },
+    closeCheckoutPopup() {
+      document.getElementById("checkoutPopup").style.display = "none";
+    },
+  },
+};
 
 // onMounted(async () => {
 //   try {
@@ -51,9 +67,7 @@ const genres = ref([]);
         class="w-full sm:aspect-[9/3.5] object-cover shadow-2xl h-[246px] sm:h-auto"
       />
       <h1
-        class="hover:bg-opacity-90 absolute sm:text-xl md:text-2xl lg:text-3xl px-6 py-1 bg-opacity-60 
-        bg-white text-center rounded-lg text-gray-600 top-1/2 left-1/2 
-        -translate-x-1/2 -translate-y-1/2 "
+        class="hover:bg-opacity-90 absolute sm:text-xl md:text-2xl lg:text-3xl px-6 py-1 bg-opacity-60 bg-white text-center rounded-lg text-gray-600 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         Explore, Escape, Engage - Your Literary Journey Starts Here!
       </h1>
@@ -135,7 +149,7 @@ const genres = ref([]);
         >
         </book>
         <book
-          class=" sm:mt-[80px]"
+          class="sm:mt-[80px]"
           imgPath="https://m.media-amazon.com/images/I/71KGi4O+u7L._AC_UF894,1000_QL80_.jpg"
           ratioSize="aspect-[1/1.41]"
           title="Next in Line"
@@ -184,4 +198,6 @@ const genres = ref([]);
       </div>
     </div>
   </main>
+
+  
 </template>

@@ -3,7 +3,7 @@ import HomeView from '../views/Home.vue'
 import ContactView from '../views/Contact.vue'
 import EventView from '../views/Event.vue'
 import ShopView from '../views/Shop.vue'
-import LoginPage from '../views/LoginPage.vue'
+import Checkout from '../views/Checkout.vue'
 
 
 const router = createRouter({
@@ -35,9 +35,9 @@ const router = createRouter({
       component: ContactView
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginPage
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout
     },
   ]
 })
