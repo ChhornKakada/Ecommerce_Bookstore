@@ -8,6 +8,8 @@ export default {
   data() {
     return {
       isLogin: false,
+      firstGenre: 1,
+      pageNumber: 1
     };
   },
   setup() {
@@ -80,7 +82,7 @@ export default {
             <RouterLink to="/" @click="open">Home</RouterLink>
           </div>
           <div class="hover:text-[#FF0000] hover:underline">
-            <RouterLink to="/shop" @click="open">Shop</RouterLink>
+            <RouterLink :to="`/shop/genre/${firstGenre}?page=${pageNumber}`" @click="open">Shop</RouterLink>
           </div>
           <div class="hover:text-[#FF0000] hover:underline">
             <RouterLink to="/about" @click="open">About</RouterLink>

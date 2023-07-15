@@ -1,81 +1,66 @@
-<script setup>
+<script>
 import { onMounted, ref } from "vue";
 import book from "../components/homePage/BookWithTitle.vue";
-const genres = ref([
-  "Mystery",
-  "Science Fiction",
-  "Fantasy",
-  "Romance",
-  "Thriller",
-  "Historical Fiction",
-  "Horror",
-  "Biography",
-  "Self-help",
-  "Young Adult",
-]);
+import genreApi from "@/libs/apis/genre";
+import bookApi from "@/libs/apis/book";
 
-const books = ref([
-  {
-    title: "One Of Us Is Dead",
-    imgUrl:
-      "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1636378079l/58482479.jpg",
-    price: "12.99",
+export default {
+  data() {
+    return {
+      genres: [],
+      books: [],
+      row: 3,
+      col: 5,
+      sorts: ["Popular", "Trending", "New Arrival"],
+      selectedGenre: this.$route.params.id,
+      currentPage: parseInt(this.$route.query.page),
+    };
   },
-  {
-    title: "To Kill a Mockingbird",
-    imgUrl:
-      "https://m.media-amazon.com/images/I/81gepf1eMqL._AC_UF894,1000_QL80_.jpg",
-    price: "10.75",
+  methods: {
+    async nextPage() {
+      // alert(`next: ${this.currentPage + 1}, last: ${this.books.meta.last_page}, genreId: ${this.selectedGenre}`)
+      if (this.currentPage + 1 <= parseInt(this.books.meta.last_page)) {
+        this.currentPage += 1;
+        this.$router.push(
+          `/shop/genre/${this.selectedGenre}?page=${this.currentPage}`
+        );
+        await this.fetchGenresAndBooks();
+      }
+    },
+    async prevPage() {
+      if (this.currentPage - 1 >= 1) {
+        this.currentPage -= 1;
+        this.$router.push(
+          `/shop/genre/${this.selectedGenre}?page=${this.currentPage}`
+        );
+        await this.fetchGenresAndBooks();
+      }
+    },
+
+    async searchBookByGenre(genreId) {
+      this.currentPage = 1;
+      this.$router.push(`/shop/genre/${genreId}`);
+      await this.fetchGenresAndBooks();
+    },
+
+    goToBookDetail(bookId) {
+      this.$router.push(`/book/${bookId}`);
+    },
+
+    async fetchGenresAndBooks() {
+      this.genres = await genreApi.all();
+      this.books = await bookApi.byGenre(
+        this.selectedGenre,
+        this.currentPage || 1
+      );
+    },
   },
-  {
-    title: "I Have Lost My Way",
-    imgUrl:
-      "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1518241340l/38474445.jpg",
-    price: "9.50",
+
+  created() {
+    this.fetchGenresAndBooks();
   },
-  {
-    title: "The Roughest Draft",
-    imgUrl:
-      "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1656013307-a1txlqssuol-1656013278.jpg?crop=1xw:1xh;center,top&resize=980:*",
-    price: "15",
-  },
-  {
-    title: "She Who Became The Sun",
-    imgUrl:
-      "https://m.media-amazon.com/images/I/81PL8rNrikL._AC_UF894,1000_QL80_.jpg",
-    price: "8.99",
-  },
-  {
-    title: "The Third Wave",
-    imgUrl: "https://m.media-amazon.com/images/I/51jGx7mADCL.jpg",
-    price: "12.99",
-  },
-  {
-    title: "Good Vibes Good Life",
-    imgUrl:
-      "https://m.media-amazon.com/images/I/51-noH62XpL._AC_UF1000,1000_QL80_.jpg",
-    price: "9.99",
-  },
-  {
-    title: "Meet Me In Another Life",
-    imgUrl:
-      "https://cdn.waterstones.com/bookjackets/large/9780/0083/9780008399818.jpg",
-    price: "10.99",
-  },
-  {
-    title: "Hello Beautiful",
-    imgUrl: "https://m.media-amazon.com/images/I/51YGx8qVVXL.jpg",
-    price: "12.75",
-  },
-  {
-    title: "The Great Gatsby",
-    imgUrl:
-      "https://m.media-amazon.com/images/I/71FTb9X6wsL._AC_UF1000,1000_QL80_.jpg",
-    price: "11",
-  },
-]);
+};
 </script>
-
 
 <template>
   <main class="w-[80%] mx-auto">
@@ -116,18 +101,38 @@ const books = ref([
         >
           <!-- test ctg -->
           <!-- test 10 time -->
-          <div v-for="genre in genres" :key="genre" class="lg:py-1">
+          <div v-for="genre in genres.data" :key="genre" class="lg:py-1">
             <div class="flex items-center tracking-wide mb-2">
-              <input
-                type="radio"
-                :id="genre"
-                name="vehicle1"
-                class="mr-4 w-[20px] aspect-square"
-              />
-              <label :for="genre" class="whitespace-nowrap">{{ genre }}</label
+              <div v-if="genre.id === selectedGenre">
+                <input
+                  type="radio"
+                  :id="genre.id"
+                  name="vehicle1"
+                  class="mr-4 w-[20px] aspect-square"
+                  :value="genre.id"
+                  v-model="selectedGenre"
+                  @change="searchBookByGenre(genre.id)"
+                  checked
+                />
+              </div>
+              <div v-else>
+                <input
+                  type="radio"
+                  :id="genre.id"
+                  name="vehicle1"
+                  class="mr-4 w-[20px] aspect-square"
+                  v-model="selectedGenre"
+                  :value="genre.id"
+                  @click="searchBookByGenre(genre.id)"
+                />
+              </div>
+              <label :for="genre.id" class="whitespace-nowrap">{{
+                genre.type
+              }}</label
               ><br />
             </div>
           </div>
+          <p>Selected Genre: {{ selectedGenre }}</p>
         </form>
       </div>
       <!-- end ctg -->
@@ -141,49 +146,74 @@ const books = ref([
               <p>Sort By</p>
               <form action="/" class="">
                 <select
-                  name="cars"
-                  id="cars"
+                  name="sortBy"
+                  id="sortBy"
                   class="bg-[#F1F5F8] bg-opacity-0 font-bold selection:border-none"
                 >
-                  <option value="volvo">Popular</option>
-                  <option value="saab">Trending</option>
-                  <option value="mercedes">New Arrival</option>
-                  <option value="audi">Audi</option>
+                  <option v-for="sort in sorts" :key="sort" :value="sort">
+                    {{ sort }}
+                  </option>
                 </select>
               </form>
             </div>
           </div>
           <div class="flex justify-end">
-            <p class="font-semibold py-2">Showing 1003 Books</p>
+            <p class="font-semibold py-2">
+              Showing {{ books.meta.total }} Books
+            </p>
           </div>
         </div>
 
-        <!-- end sort -->
-
         <!-- books list -->
         <div class="border-black">
-          <div
-            class="grid grid-rows-2 grid-flow-col overflow-auto gap-[20px] w-full border-red-500"
-          >
+          <div v-for="i in row" :key="i">
             <div
-              v-for="book in books"
-              :key="book"
-              class="w-[180px] xl:w-[200px] 2xl:w-[220px] mb-8 border-green-500"
+              class="grid grid-rows grid-flow-col rounded-lg p-2 shadow-md overflow-auto gap-[20px] mb-10 border-red-500"
             >
-              <!-- a book -->
-              <!-- <div class="w-full mb-8   border-green-500"> -->
+              <div
+                v-for="j in col"
+                :key="j"
+                class="w-[180px] xl:w-[200px] 2xl:w-[220px] mb-2 border-green-500 hover:text-blue-700"
+              >
+                <div
+                  v-if="(i - 1) * col + (j - 1) < books.data.length"
+                  @click="
+                    goToBookDetail(books.data[(i - 1) * col + (j - 1)].id)
+                  "
+                >
+                  <img
+                    :src="books.data[(i - 1) * col + (j - 1)].imgUrl"
+                    :alt="books.data[(i - 1) * col + (j - 1)].title"
+                    class="rounded-lg shadow-xl w-full aspect-[3/4.5] object-cover hover:shadow-xl hover:border-black hover:border-2"
+                  />
+                  <p class="font-semibold pt-2">
+                    {{ books.data[(i - 1) * col + (j - 1)].title }}
+                  </p>
+                  <p class="py">
+                    ${{ books.data[(i - 1) * col + (j - 1)].price }}
+                  </p>
+                </div>
+              </div>
 
-              <img
-                :src="book.imgUrl"
-                alt="Popular Machinic"
-                class="rounded-lg shadow-xl w-full aspect-[3/4.5] object-cover"
-              />
-              <p class="font-semibold pt-2">{{ book.title }}</p>
-              <p class="py">${{ book.price }}</p>
-
-              <!-- </div> -->
               <!-- end a book -->
             </div>
+          </div>
+
+          <!-- more books -->
+          <div class="flex justify-center gap-8">
+            <button
+              @click="prevPage"
+              class="hover:text-blue-700 hover:font-bold"
+            >
+              Prev
+            </button>
+            <p>{{ books.meta.current_page }} / {{ books.meta.last_page }}</p>
+            <button
+              @click="nextPage"
+              class="hover:text-blue-700 hover:font-bold"
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

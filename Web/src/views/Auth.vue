@@ -10,6 +10,7 @@ export default {
   },
   methods: {
     cancel() {
+      this.isLogin = true;
       history.back();
     },
   },

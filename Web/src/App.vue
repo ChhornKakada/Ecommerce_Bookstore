@@ -6,8 +6,8 @@ import FooterView from "./views/FooterView.vue";
 export default {
   data() {
     return {
-      isCheckingOut: false,
-      isLogin: false,
+      // isCheckingOut: false,
+      // isLogin: false,
     };
   },
   components: {

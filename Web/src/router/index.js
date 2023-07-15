@@ -4,6 +4,7 @@ import ContactView from '../views/Contact.vue'
 import EventView from '../views/Event.vue'
 import ShopView from '../views/Shop.vue'
 import Checkout from '../views/Checkout.vue'
+import BookDetail from '../views/BookDetail.vue'
 
 
 const router = createRouter({
@@ -20,7 +21,7 @@ const router = createRouter({
       component: () => import('../views/About.vue')
     },
     {
-      path: '/shop',
+      path: '/shop/genre/:id',
       name: 'shop',
       component: ShopView
     },
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/checkout',
       name: 'checkout',
       component: Checkout
+    },
+    {
+      path: '/book/:id',
+      name: 'book-detail',
+      component: BookDetail,
     },
   ]
 })
