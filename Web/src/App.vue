@@ -23,7 +23,7 @@ export default {
 <template>
 
   <header>
-    <div class="">
+    <div >
       <Navbar/>
     </div>
   </header>

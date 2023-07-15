@@ -23,7 +23,8 @@ class BookResource extends JsonResource
       'isbn' => $this->isbn,
       'desc' => $this->desc,
       'price' => $this->price,
-      'author' => new AuthorResource($this->whenLoaded('author'))
+      'author' => new AuthorResource($this->whenLoaded('author')),
+      'genre' => new GenreResource($this->whenLoaded('genre'))
     ];
   }
 }

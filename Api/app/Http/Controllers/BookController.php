@@ -64,7 +64,7 @@ class BookController extends Controller
    */
   public function show(Book $book)
   {
-    return new BookResource($book->loadMissing('author'));
+    return new BookResource($book->loadMissing('author')->loadMissing('genre'));
   }
 
   /**

@@ -27,5 +27,6 @@ Route::group([], function() {
 
 });
 
+
 Route::get('/books/search', [BookController::class, 'searchByAuthor'])->name('books.search');
 

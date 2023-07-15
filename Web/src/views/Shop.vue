@@ -93,7 +93,7 @@ export default {
         <h2
           class="text-[1.2rem] font-medium md:text-[1.2rem] tracking-wider mb-4 pt-4"
         >
-          Categories
+          Genres
         </h2>
         <form
           action="/"
@@ -132,7 +132,7 @@ export default {
               ><br />
             </div>
           </div>
-          <p>Selected Genre: {{ selectedGenre }}</p>
+          <!-- <p>Selected Genre: {{ selectedGenre }}</p> -->
         </form>
       </div>
       <!-- end ctg -->

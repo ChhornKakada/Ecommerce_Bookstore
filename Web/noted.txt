@@ -5,3 +5,6 @@
     {{ books.data[(i*j) - 1].title }}
   </div>
 </div>
+
++ run project: npm run dev
++ url: http://localhost:5173/
