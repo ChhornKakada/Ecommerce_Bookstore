@@ -33,14 +33,22 @@ export default {
     goToBookDetail(bookId) {
       this.$router.push(`/book/${bookId}`);
     },
+    goToGenre(genreId) {
+      this.$router.push(`/shop/genre/${genreId}?page=1`);
+    },
+
+    goTo(genreId, sortBy, page) {
+      this.$router.push(`/shop/genre/${genreId}?&sortBy=${sortBy}&page=${page}`);
+    },
   },
 
+  // mounted
   async mounted() {
     this.genres = await genreApi.all(3);
     this.books = await bookApi.all(3);
-    this.latestBooks = await bookApi.all(3, true);
+    this.latestBooks = await bookApi.all(3, "Latest");
   },
-};
+};  
 
 </script>
 
@@ -60,12 +68,13 @@ export default {
     <div class="sm:mt-10">
       <headerBox headTitle="Genres"
         para="A medium for recording information in the form of writing or images, typically composed of many pages (madeof papyrus, parchment, vellum, or paper) bound together and protected by a cover."
-        btnText="See more">
+        btnText="See more" @goTo="goTo(0, 'All', 1)">
       </headerBox>
 
       <div class="flex justify-center md:w-[90%] mx-auto gap-10 flex-wrap w-full">
         <div v-for:="item in genres.data">
-          <book :imgPath="item.imgUrl" :title="item.type" ratioSize="aspect-square"></book>
+          <book :imgPath="item.imgUrl" :title="item.type" ratioSize="aspect-square"
+          @click="goToGenre(item.id)"></book>
         </div>
       </div>
     </div>
@@ -76,11 +85,12 @@ export default {
       <div>
         <headerBox headTitle="Our latest arrivals"
           para="Here are the latest arrival books. Many more are store in this page. Find your favorite one by clicking the below button."
-          btnText="See more"></headerBox>
+          btnText="See more"
+          @goTo="goTo(0, 'New Arrival', 1)"></headerBox>
       </div>
       <div class="flex justify-center md:w-[90%] mx-auto gap-10 flex-wrap w-full">
         <div v-for:="(item, index) in latestBooks.data" :key="index" :class="index !== 1 ? 'mt-[80px]' : ''">
-          <book :imgPath="item.imgUrl" ratioSize="aspect-[1/1.41]" :title="item.title" @click="goToBookDetail(item.id)">
+          <book :imgPath="item.imgs.front" ratioSize="aspect-[1/1.41]" :title="item.title" @click="goToBookDetail(item.id)">
           </book>
         </div>
       </div>
@@ -91,11 +101,12 @@ export default {
       <div>
         <headerBox headTitle="Our Books"
           para="Many titles are sell in this website you serve the need of the customers. Our website give the customers with good product and services."
-          btnText="See more"></headerBox>
+          btnText="See more"
+          @goTo="goTo(0, 'All', 1)"></headerBox>
       </div>
       <div class="flex justify-center md:w-[90%] mx-auto gap-10 flex-wrap w-full">
         <div v-for:="item in books.data">
-          <book :imgPath="item.imgUrl" :title="item.title" ratioSize="aspect-[1/1.51]"
+          <book :imgPath="item.imgs.front" :title="item.title" ratioSize="aspect-[1/1.51]"
           @click="goToBookDetail(item.id)"></book>
         </div>
       </div>

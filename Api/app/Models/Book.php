@@ -29,4 +29,8 @@ class Book extends Model
   public function orderDetails() {
     return $this->hasMany(Order_detail::class);
   }
+
+  public function bookImage() {
+    return $this->hasOne(BookImage::class);
+  }
 }

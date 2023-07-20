@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       isLogin: false,
-      firstGenre: 1,
+      genreId: 0,
       pageNumber: 1
     };
   },
@@ -82,7 +82,7 @@ export default {
             <RouterLink to="/" @click="open">Home</RouterLink>
           </div>
           <div class="hover:text-[#FF0000] hover:underline">
-            <RouterLink :to="`/shop/genre/${firstGenre}?page=${pageNumber}`" @click="open">Shop</RouterLink>
+            <RouterLink to="/shop/genre/0?page=1" @click="open">Shop</RouterLink>
           </div>
           <div class="hover:text-[#FF0000] hover:underline">
             <RouterLink to="/about" @click="open">About</RouterLink>

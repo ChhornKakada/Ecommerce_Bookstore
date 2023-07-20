@@ -17,7 +17,7 @@ class CreateBooksTable extends Migration
       $table->id();
       $table->string('title');
       $table->date('published_date');
-      $table->string('imgUrl');
+    //   $table->string('imgUrl');
       $table->string('isbn');
       $table->string('desc', 600);
       $table->double('price');

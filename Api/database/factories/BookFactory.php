@@ -23,10 +23,10 @@ class BookFactory extends Factory
 
     return [
       'title' => $this->faker->sentence(),
+    //   'imgUrl' => $this->faker->imageUrl(400, 600, 'books', true),
 
       'author_id' => $this->faker->randomElement($authorIds),
       'genre_id' => $this->faker->randomElement($genreIds),
-      'imgUrl' => $this->faker->imageUrl(400, 600, 'books', true),
       'published_date' => $this->faker->dateTimeBetween('-40 years', 'now')->format('Y-m-d'),
       'isbn' => $this->faker->isbn13(),
       'desc' => $this->faker->paragraph(),

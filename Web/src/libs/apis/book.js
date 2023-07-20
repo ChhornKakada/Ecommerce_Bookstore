@@ -1,8 +1,8 @@
 var book = {
-  async all(number = 15, isLatest = false) {
-    var url = `http://127.0.0.1:8000/api/books?number=${number}`;
-    if (isLatest) {
-      url = `http://127.0.0.1:8000/api/books?number=${number}&isLatest=${isLatest}`;
+  async all(number = 15, sortBy = "All") {
+    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?number=${number}`;
+    if (sortBy != "All") {
+      url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?number=${number}&sortBy=${sortBy}`;
     } 
     const res = await fetch(url, {
       method: "GET",
@@ -29,9 +29,15 @@ var book = {
     return result;
   },
 
-  async byGenre(genreId, pageNumber) {
-    // http://127.0.0.1:8000/api/books?genreId%5Beq%5D=1&page=1
-    var url = `http://127.0.0.1:8000/api/books?genreId[eq]=${genreId}&page=${pageNumber}`;
+  async byGenre(genreId = 0, pageNumber = 1, sortBy = 'All') {
+    if (sortBy == "New Arrival") {
+      sortBy = 'Latest'
+    }
+    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?genreId[eq]=${genreId}&page=${pageNumber}&sortBy=${sortBy}`;
+    if (parseInt(genreId) === 0) {
+      url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?page=${pageNumber}&sortBy=${sortBy}`;
+      // alert(genreId)
+    }
     const res = await fetch(url, {
       method: "GET",
       headers: {
@@ -45,7 +51,7 @@ var book = {
   },
 
   async detail(bookId) {
-    var url = `http://127.0.0.1:8000/api/books/${bookId}`;
+    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books/${bookId}`;
     const res = await fetch(url, {
       method: "GET",
       headers: {

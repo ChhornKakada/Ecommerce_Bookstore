@@ -27,14 +27,14 @@ class GenreFactory extends Factory
    * @return \Illuminate\Database\Eloquent\Factories\Factory
    */
 
-    public function specificGenre($type, $imgUrl, $desc)
-    {
-      return $this->state(function (array $attributes) use ($type, $imgUrl, $desc) {
-        return [
-          'type' => $type,
-          'imgUrl' => $imgUrl,
-          'desc' => $desc
-        ];
-      });
-    }
+  public function specificGenre($type, $imgUrl, $desc)
+  {
+    return $this->state(function (array $attributes) use ($type, $imgUrl, $desc) {
+      return [
+        'type' => $type,
+        'imgUrl' => $imgUrl,
+        'desc' => $desc
+      ];
+    });
+  }
 }

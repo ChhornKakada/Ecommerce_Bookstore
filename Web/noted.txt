@@ -1,10 +1,7 @@
-<div v-for="i in row" :key="i">
-  <div v-for="j in col" :key="j">
-    {{ `Outer: ${i}, Inner: ${j}` }}
-    {{ `result: ${i*j}` }}
-    {{ books.data[(i*j) - 1].title }}
-  </div>
-</div>
 
 + run project: npm run dev
 + url: http://localhost:5173/
+
++ "props" stands for properties. Props are a way to pass data from a parent component to a child component. They allow you to define and pass values from a higher-level component (parent) to a lower-level component (child).
+
++ `$emit` is a method provided by the Vue instance and Vue components. It is used to emit custom events from a component to its parent or ancestor components.

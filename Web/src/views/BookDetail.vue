@@ -24,6 +24,13 @@ export default {
     cancel() {
       history.back();
     },
+
+    copyUrl() {
+      navigator.clipboard.writeText(this.$route.fullPath);
+
+      // Alert the copied text
+      alert("Copied the text: " + this.$route.fullPath);
+    }
   },
 
   // beforeCreate || beforeMount
@@ -37,22 +44,23 @@ export default {
 <template>
   <!-- cancel -->
   <div class="flex justify-end mr-4 mt-4">
-      <button @click="cancel" class="py-1 flex items-center gap-2 px-4 text-red-500 rounded-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-12 h-12">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-    <!-- end cancel -->
+    <button @click="cancel" class="py-1 flex items-center gap-2 px-4 text-red-500 rounded-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="w-12 h-12">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <!-- end cancel -->
 
   <div class="w-[80%] lg:flex mb-8 mx-auto">
     <!-- left -->
-    <div class="lg:w-1/2   hidden lg:block">
+    <div class="lg:w-1/2 hidden lg:block">
       <div class="grid grid-rows-2 pr-[20%] grid-flow-col rounded-lg overflow-auto gap-[20px] mb-10 border-red-500">
-        <div v-for="i in pics" :key="i">
-          <img :src="book.data.imgUrl" alt="" class="w-full  aspect-square rounded-lg object-cover">
-        </div>
+        <img :src="book.data.imgs.front" alt="" class="w-full  aspect-square rounded-lg object-cover">
+        <img :src="book.data.imgs.back" alt="" class="w-full  aspect-square rounded-lg object-cover">
+        <img :src="book.data.imgs.left" alt="" class="w-full  aspect-square rounded-lg object-cover">
+        <img :src="book.data.imgs.inside" alt="" class="w-full  aspect-square rounded-lg object-cover">
       </div>
     </div>
 
@@ -67,7 +75,7 @@ export default {
               <p class="text-[1.5rem]">${{ book.data.price }}</p>
             </div>
           </div>
-          <div class="">
+          <div class="" @click="copyUrl">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,7 +87,7 @@ export default {
 
         <!-- img -->
         <div class="w-full mx-auto my-4 sm:hidden">
-          <img :src="book.data.imgUrl" alt="" class="w-full aspect-[3/4] object-cover">
+          <img :src="book.data.imgs.front" alt="" class="w-full aspect-[3/4] object-cover">
           <!-- price -->
           <div class="text-[1.3rem] flex justify-end font-medium">
             <p>${{ book.data.price }}</p>
@@ -90,9 +98,10 @@ export default {
         <!-- 4 pics -->
         <div class="hidden sm:block w-full  lg:hidden mt-6">
           <div class="grid grid-rows-2 grid-flow-col rounded-lg overflow-auto gap-[20px]  border-red-500">
-            <div v-for="i in pics" :key="i">
-              <img :src="book.data.imgUrl" alt="" class="w-full  border-black aspect-square rounded-lg object-cover">
-            </div>
+            <img :src="book.data.imgs.front" alt="" class="w-full  aspect-square rounded-lg object-cover">
+            <img :src="book.data.imgs.back" alt="" class="w-full  aspect-square rounded-lg object-cover">
+            <img :src="book.data.imgs.left" alt="" class="w-full  aspect-square rounded-lg object-cover">
+            <img :src="book.data.imgs.inside" alt="" class="w-full  aspect-square rounded-lg object-cover">
           </div>
           <div class="text-[1.5rem] py-4 flex justify-end font-medium">
             <p>${{ book.data.price }}</p>
@@ -161,7 +170,6 @@ export default {
       </div>
 
     </div>
-
 
   </div>
 </template>

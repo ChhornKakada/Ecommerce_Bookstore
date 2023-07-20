@@ -15,19 +15,6 @@ class GenreSeeder extends Seeder
   public function run()
   {
     // Specific data
-    // $genres = [
-    //   'Mystery',
-    //   'Science Fiction',
-    //   'Fantasy',
-    //   'Romance',
-    //   'Thriller',
-    //   'Historical Fiction',
-    //   'Horror',
-    //   'Biography',
-    //   'Self-help',
-    //   'Young Adult'
-    // ];
-
     $genres = [
       [
         [
@@ -113,13 +100,9 @@ class GenreSeeder extends Seeder
     foreach ($genres as $genreData) {
       foreach ($genreData as $data) {
         Genre::factory()
-        ->specificGenre($data["type"], $data["imgUrl"], $data["desc"])
-        ->create();
+          ->specificGenre($data["type"], $data["imgUrl"], $data["desc"])
+          ->create();
+      }
     }
-
-    }
-    // Genre::factory()
-    //   ->count(20)
-    //   ->create();
   }
 }

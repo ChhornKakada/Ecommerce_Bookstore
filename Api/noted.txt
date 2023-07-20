@@ -1,5 +1,7 @@
 + creating project: laravel new porject-name
 + php artisan make:model Author --all : create both model and table for migration.
+    - php artisan make:model BookImage --all: for wanting to use "_"
+
 + php artisan migrate:fresh --seed : migrate both tables and datas
 + php artisan db:seed --class=GenreSeeder : migrate specific data
 
@@ -7,3 +9,5 @@
     - want to filter the data we want to show in api and rename the name of column
     - create: php artisan make:resource GenreResource
     - 'Resource' use for a data while 'Collection' use for array
+
++ create controller: php artisan make:controller controllerName

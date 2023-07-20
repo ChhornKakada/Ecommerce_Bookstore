@@ -5,7 +5,7 @@
       <h1 class="text-[2rem] font-medium md:text-[2.5rem] tracking-wider py-6">
         Contact Us
       </h1>
-      <p class="text-gray-600">
+      <p class="text-gray-500">
         Welcome to our Contact page! We're here to assist you in any way we can.
         If you have any questions, inquiries, or feedback, please don't hesitate
         to reach out to us. Fill out the form below, and our dedicated team will

@@ -1,35 +1,50 @@
-<script setup>
-import cateImg from '../components/homePage/categoryImg.vue'
-import headerBox from '../components/homePage/HeaderBox.vue'
-import latestBook from '../components/homePage/LatestArrivalBook.vue'
-import book from '../components/homePage/BookWithTitle.vue'
 
-defineProps({
-  headTitle: {
-    type: String,
-    required: true
-  },
-  para: {
-    type: String,
-    required: true
-  },
-  btnText: {
-    type: String,
-    required: true
-  },
-  imgPath1: {
-    type: String,
-    required: true
-  },
-  title1: {
-    
-  }
-})
+<script>
+import { defineProps } from 'vue';
+import CateImg from '../components/homePage/CategoryImg.vue';
+import HeaderBox from '../components/homePage/HeaderBox.vue';
+import LatestBook from '../components/homePage/LatestArrivalBook.vue';
+import Book from '../components/homePage/BookWithTitle.vue';
 
+export default {
+  components: {
+    CateImg,
+    HeaderBox,
+    LatestBook,
+    Book,
+  },
+
+  props: {
+    headTitle: {
+      type: String,
+      required: true,
+    },
+    para: {
+      type: String,
+      required: true,
+    },
+    btnText: {
+      type: String,
+      required: true,
+    },
+    imgPath1: {
+      type: String,
+      required: true,
+    },
+    title1: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    defineProps(props);
+  },
+};
 </script>
 
 <template>
-  <div class="mt-10">
+  <div @click="emit('goTo')" class="mt-10">
       <headerBox headTitle="Category"
         para="A medium for recording information in the form of writing or images, typically composed of many pages (madeof papyrus, parchment, vellum, or paper) bound together and protected by a cover."
         btnText="See more"></headerBox>

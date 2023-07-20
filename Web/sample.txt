@@ -1,0 +1,7 @@
+<div v-for="i in row" :key="i">
+  <div v-for="j in col" :key="j">
+    {{ `Outer: ${i}, Inner: ${j}` }}
+    {{ `result: ${i*j}` }}
+    {{ books.data[(i*j) - 1].title }}
+  </div>
+</div>

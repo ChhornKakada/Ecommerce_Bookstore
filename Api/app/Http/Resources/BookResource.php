@@ -15,16 +15,21 @@ class BookResource extends JsonResource
   public function toArray($request)
   {
     // return parent::toArray($request);
+    // $bookImage = $this->whenLoaded('bookImage');
+
     return [
       'id' => $this->id,
       'title' => $this->title,
       'publishedDate' => $this->published_date,
-      'imgUrl' => $this->imgUrl,
       'isbn' => $this->isbn,
       'desc' => $this->desc,
       'price' => $this->price,
       'author' => new AuthorResource($this->whenLoaded('author')),
-      'genre' => new GenreResource($this->whenLoaded('genre'))
+      'genre' => new GenreResource($this->whenLoaded('genre')),
+
+      // 'field' => new ClassResource($this->whenLoaded('function in this class'))
+      'imgs' => new BookImageResource($this->whenLoaded('bookImage'))
+    //   'imgs' => $bookImage ? $bookImage->toArray() : [],
     ];
   }
 }

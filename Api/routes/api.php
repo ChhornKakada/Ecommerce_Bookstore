@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,17 +17,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// protected routes
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
+});
+
+// protected routes
+Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
+  Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 
-Route::group([], function() {
+// public routes
+Route::middleware(['cors'])->group([], function () {
   Route::apiResource('genres', GenreController::class);
   Route::apiResource('books', BookController::class);
-
+  Route::post('/register', [AuthController::class, 'register']);
+  Route::post('/login', [AuthController::class, 'login']);
 });
 
 
 Route::get('/books/search', [BookController::class, 'searchByAuthor'])->name('books.search');
-

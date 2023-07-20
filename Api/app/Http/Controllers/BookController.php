@@ -23,16 +23,29 @@ class BookController extends Controller
     $filterItems = $filter->transform($request); // [['column], 'operation', 'value']
 
     $number = $request->query('number');
-    $isLatest = $request->query('isLatest');
-    $books = Book::where($filterItems);
-    if ($isLatest) {
-      $books = $books->orderBy('id', 'desc');
+    $sortBy = $request->query('sortBy');
+    $books = [];
+    if ($sortBy == 'Latest') {
+      $books = Book::where($filterItems)->orderBy('id', 'desc');
+    } else if ($sortBy == 'popular') {
+      // ...
+    } else if ($sortBy == 'Trending') {
+      // ....
+    } else {
+      $books = Book::where($filterItems);
     }
 
-    if ($number) {
-      return new BookCollection($books->paginate($number)->appends($request->query()));
-    }
-    return new BookCollection($books->paginate()->appends($request->query()));
+    $paginatedBooks = $number ? $books->paginate($number) : $books->paginate();
+    $paginatedBooks = $paginatedBooks->appends($request->query());
+
+    // filter the field of book
+    $bookCollection = $paginatedBooks->getCollection()->map(function ($book) {
+      return new BookResource($book->loadMissing('bookImage'));
+    });
+
+    $paginatedBooks->setCollection($bookCollection);
+
+    return $paginatedBooks;
   }
 
   /**
@@ -64,7 +77,7 @@ class BookController extends Controller
    */
   public function show(Book $book)
   {
-    return new BookResource($book->loadMissing('author')->loadMissing('genre'));
+    return new BookResource($book->loadMissing('author')->loadMissing('genre')->loadMissing('bookImage'));
   }
 
   /**
