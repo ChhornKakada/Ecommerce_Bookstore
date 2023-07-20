@@ -42,9 +42,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 COPY . /var/www/
 # RUN php artisan config:clear
-RUN composer dump-autoload
+# RUN composer dump-autoload
 RUN rm -f composer.lock
 RUN composer i
 
-
+RUN php artisan key:generate
 # USER $user
