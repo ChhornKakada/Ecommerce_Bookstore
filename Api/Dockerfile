@@ -36,13 +36,35 @@
 # # USER $user
 
 
+# FROM lorisleiva/laravel-docker:7.4
+# EXPOSE 8000
+
+# COPY .  /var/www
+# RUN rm -f composer.lock
+# RUN composer install
+# RUN cp .env.example .env
+# RUN php artisan key:generate
+
+# CMD php artisan --host=0.0.0.0 serve
+
 FROM lorisleiva/laravel-docker:7.4
+
+# Expose the port used by the PHP development server
 EXPOSE 8000
 
-COPY .  /var/www
+# Copy the Laravel application files
+COPY . /var/www
+
+# Install dependencies and generate Laravel key
 RUN rm -f composer.lock
 RUN composer install
 RUN cp .env.example .env
 RUN php artisan key:generate
 
-CMD php artisan --host=0.0.0.0 serve
+# Set the correct permissions for Laravel
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www/storage
+
+# Start the PHP development server
+CMD php artisan serve --host=0.0.0.0 --port=8000
+
