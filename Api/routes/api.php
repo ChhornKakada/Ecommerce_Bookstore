@@ -31,8 +31,8 @@ Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function 
 
 // public routes
 Route::middleware(['cors'])->group([], function () {
-  Route::apiResource('genres', GenreController::class);
-  Route::apiResource('books', BookController::class);
+  Route::resource('/genres', GenreController::class);
+  Route::resource('/books', BookController::class);
   Route::post('/register', [AuthController::class, 'register']);
   Route::post('/login', [AuthController::class, 'login']);
 });
