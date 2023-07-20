@@ -24,18 +24,34 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // protected routes
-Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
-  Route::post('/logout', [AuthController::class, 'logout']);
-});
+// Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
+//   Route::post('/logout', [AuthController::class, 'logout']);
+// });
 
+
+// // public routes
+// Route::middleware(['cors'])->group([], function () {
+//   Route::resource('/genres', GenreController::class);
+//   Route::resource('/books', BookController::class);
+//   Route::post('/register', [AuthController::class, 'register']);
+//   Route::post('/login', [AuthController::class, 'login']);
+// });
+
+
+// Route::get('/books/search', [BookController::class, 'searchByAuthor'])->name('books.search');
+
+// protected routes
+Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
 // public routes
 Route::middleware(['cors'])->group([], function () {
-  Route::resource('/genres', GenreController::class);
-  Route::resource('/books', BookController::class);
-  Route::post('/register', [AuthController::class, 'register']);
-  Route::post('/login', [AuthController::class, 'login']);
+    Route::resource('/genres', GenreController::class);
+    Route::resource('/books', BookController::class);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
-
+// Route outside the group
 Route::get('/books/search', [BookController::class, 'searchByAuthor'])->name('books.search');
