@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 
 // protected routes
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-  return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//   return $request->user();
+// });
 
 // protected routes
 Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
