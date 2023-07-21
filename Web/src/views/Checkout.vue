@@ -1,33 +1,47 @@
 <script>
+import Discount from '../components/checkout/Discount.vue'
+import Shipping from '../components/checkout/Shipping.vue'
+import Address from '../components/checkout/Address.vue'
+import Payment from '../components/checkout/Payment.vue'
+import { useCheckoutStore } from '../stores/CheckoutStore'
+
+
 export default {
-  data() {
-    return {
-      booksOrder: [
-        {
-          title: "Hello Beautiful",
-          imgUrl: "https://m.media-amazon.com/images/I/912iiFEK2wL.jpg",
-          author: "Chhorn Kakada",
-          qty: 1,
-          totalPrice: 12,
-        },
-        {
-          title: "The Roughest Draft",
-          imgUrl:
-            "https://m.media-amazon.com/images/I/A1TxlqsSuOL._AC_UF1000,1000_QL80_.jpg",
-          author: "Chhorn Kakada",
-          qty: 1,
-          totalPrice: 13,
-        },
-      ],
-      wrapperHeight: "",
-    };
+  components: {
+    Discount, Address, Shipping, Payment
   },
-  methods: {
-    cancel() {
+
+  setup() {
+
+    const checkoutStore = useCheckoutStore()
+
+    const booksOrder = [
+      {
+        title: "Hello Beautiful",
+        imgUrl: "https://m.media-amazon.com/images/I/912iiFEK2wL.jpg",
+        author: "Chhorn Kakada",
+        qty: 1,
+        totalPrice: 12,
+      },
+      {
+        title: "The Roughest Draft",
+        imgUrl:
+          "https://m.media-amazon.com/images/I/A1TxlqsSuOL._AC_UF1000,1000_QL80_.jpg",
+        author: "Chhorn Kakada",
+        qty: 1,
+        totalPrice: 13,
+      },
+    ];
+    const wrapperHeight = ""
+
+    const cancel = () => {
       history.back();
-    },
-    
-  },
+    }
+
+    return {
+      booksOrder, wrapperHeight, cancel, checkoutStore
+    }
+  }
 };
 </script>
 
@@ -43,8 +57,8 @@ export default {
 
   <!-- main -->
 
-  <div  class="w-[80%] mx-auto">
-    <h1 class="text-[2.2rem] font-bold tracking-wider mb-4">Your Card</h1>
+  <div class="w-[80%] mx-auto mb-6">
+    <h1 class="text-[2.2rem] font-bold tracking-wider mb-4">Your Cart</h1>
 
     <div class="xl:flex">
       <!-- left -->
@@ -78,29 +92,16 @@ export default {
             </div>
           </div>
         </div>
+        
       </div>
 
       <!-- right -->
       <div class="xl:pl-36 xl:w-1/2 xl:mb-0 mb-6">
-        <div class="text-[1.5rem] font-bold tracking-wider">Discount</div>
-        <form action="#">
-          <input type="text" class="w-full py-3 border border-black pl-4 my-6" placeholder="Enter coupon code here" />
-          <div class="flex justify-between">
-            <p>Subtotal</p>
-            <p>$25</p>
-          </div>
-          <div class="flex justify-between mt-2 border-b pb-4 mb-4 border-black">
-            <p>Shipping</p>
-            <p class="text-gray-500">Calculate at the next step</p>
-          </div>
-          <div class="flex justify-between font-bold mb-8">
-            <p>Total</p>
-            <p class="">$25</p>
-          </div>
-          <button class="text-center w-full text-white tracking-wider bg-[#0D0D0D] py-4">
-            Continue to Checkout
-          </button>
-        </form>
+        <Discount />
+        <!-- <Address/> -->
+        <!-- <Shipping/> -->
+        <!-- {{ checkoutStore.hello }} -->
+        <!-- <Payment/> -->
       </div>
     </div>
   </div>
