@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
       $table->unsignedBigInteger('payment_id');
       $table->foreign('payment_id')->references('id')->on('payments');
 
-      $table->unsignedBigInteger('promote_code_id');
+      $table->unsignedBigInteger('promote_code_id')->nullable();
       $table->foreign('promote_code_id')->references('id')->on('promote_codes');
 
       $table->timestamps();

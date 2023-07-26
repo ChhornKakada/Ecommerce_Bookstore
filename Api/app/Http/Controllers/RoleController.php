@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -34,9 +35,14 @@ class RoleController extends Controller
      * @param  \App\Http\Requests\StoreRoleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRoleRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->json()->all();
+        $role = new Role();
+        $role->type = $data['type'];
+        $role->save();
+
+        return response()->json(['message' => 'Role saved successfully']);
     }
 
     /**

@@ -15,6 +15,7 @@ export default {
       sortBy: this.$route.query.sortBy || 'All',
       selectedGenre: this.$route.params.id,
       currentPage: parseInt(this.$route.query.page),
+      isLoading: false
     };
   },
   methods: {
@@ -38,18 +39,6 @@ export default {
       }
     },
 
-    // async searchBookByGenre(genreId) {
-    //   this.currentPage = 1;
-    //   this.$router.push(`/shop/genre/${genreId}?sortBy=${this.sortBy}`);
-    //   await this.fetchGenresAndBooks();
-    // },
-
-    // async searchBookBySort() {
-    //   this.currentPage = 1;
-    //   this.$router.push(`/shop/genre/${this.selectedGenre}?sortBy=${this.sortBy}`);
-    //   await this.fetchGenresAndBooks();
-    // },
-
     async searchBook() {
       this.currentPage = 1;
       this.$router.push(`/shop/genre/${this.selectedGenre}?sortBy=${this.sortBy}`);
@@ -71,13 +60,18 @@ export default {
   },
 
   created() {
+    this.isLoading = true
     this.fetchGenresAndBooks();
+    this.isLoading = false
   },
 };
 </script>
 
 <template>
   <main class="w-[80%] mx-auto">
+    <div v-if="isLoading == true">
+      <span class="loader"></span>
+    </div>
     <!-- header -->
     <div class="flex">
       <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%]">
@@ -209,3 +203,50 @@ export default {
     </div>
   </main>
 </template>
+
+
+<style>
+.loader {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  --base-color: black; /*use your base color*/
+}
+.loader::before {
+  content: '';  
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: black;
+  background-image: radial-gradient(circle 8px at 18px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 0px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 36px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 36px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 5px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 3s linear infinite;
+}
+.loader::after {
+  content: '';  
+  left: 35px;
+  top: 15px;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: black;
+  background-image: radial-gradient(circle 5px at 12px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 0px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 24px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 24px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 3px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 4s linear infinite reverse;
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}  
+</style>

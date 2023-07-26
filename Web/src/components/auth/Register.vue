@@ -3,6 +3,9 @@ import { stringify } from 'postcss';
 import auth from "@/libs/apis/auth";
 import { useAttrs } from 'vue';
 import axios from 'axios';
+import local from '@/libs/apis/local'
+import { useAuthStore } from '../../stores/AuthStore';
+import { useCheckoutStore } from '../../stores/CheckoutStore';
 
 
 export default {
@@ -13,8 +16,11 @@ export default {
         name: '',
         password: '',
         password_confirmation: ''
-      }
-
+      },
+      authStore: useAuthStore(),
+      checkoutStore: useCheckoutStore(),
+      inValidEmail: null,
+      pwDontMatch: null
     }
   },
 
@@ -35,10 +41,22 @@ export default {
           console.log(res.status)
           if (res.status >= 300 || res.status < 200) {
             const data = await res.json();
-            alert(data.message)
+            if (data.errors.email) {
+              // alert(data.errors.email)
+              this.inValidEmail = data.errors.email[0]
+            } 
+            if (data.errors.password) {
+              // alert(data.errors.password)
+              this.pwDontMatch = data.errors.password[0]
+            }
           } else {
-            alert('success')
-            this.$router.push(this.$route.fullPath);
+            const data = await res.json();
+            local.set('authToken', data.token);
+            local.set('currectUser', data.user);
+            this.authStore.alreadyLogin()
+            if (this.authStore.isCheckout === true) {
+              this.checkoutStore.goToCheckout();
+            }
           }
         }
       )
@@ -48,7 +66,6 @@ export default {
 
 }
 
-// }
 
 </script>
 
@@ -65,7 +82,8 @@ export default {
       <label for="email">Email</label><br />
       <input class="border-2 rounded-md w-full py-2 pl-2 focus:border-blue-500 mt-2" id="email" type="email" name="email"
         placeholder="name@gmail.com" v-model="user.email" />
-    </div> 
+      <div v-if="inValidEmail" class="text-red-500">{{ inValidEmail }}</div>
+    </div>
     <div class="mt-6">
       <label for="email-input">Password</label><br />
       <input class="border-2 rounded-md w-full py-2 pl-2 focus:border-blue-500 mt-2" id="email-input" type="password"
@@ -75,6 +93,7 @@ export default {
       <label for="cf-passwd">Confirm Password</label><br />
       <input class="border-2 rounded-md w-full py-2 pl-2 focus:border-blue-500 mt-2" id="cf-passwd" type="password"
         name="cf-passwd" placeholder="******" v-model="user.password_confirmation" />
+      <div v-if="pwDontMatch" class="text-red-500">{{ pwDontMatch }}</div>
     </div>
     <div class="mt-6">
       <button type="submit"

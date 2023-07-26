@@ -8,6 +8,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
+use App\Models\BookImage;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -64,9 +65,32 @@ class BookController extends Controller
    * @param  \App\Http\Requests\StoreBookRequest  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreBookRequest $request)
-  {
-    //
+  public function store(Request $request) {
+    $data = $request->json()->all();
+
+    // create new book
+    $book = new Book();
+    $book->title = $data['title'];
+    $book->isbn = $data['isbn'];
+    $book->published_date = $data['publishedDate'];
+    $book->price = $data['price'];
+    $book->desc = $data['desc'];
+    $book->author_id = $data['authorId'];
+    $book->genre_id = $data['genreId'];
+    $book->save();
+
+    // Create OrderDetails
+    if (isset($data['imgs'])) {
+      $bookImg = new BookImage();
+      $bookImg->book_id = $book->id; // Set the order_id for the order detail
+      $bookImg->front = $data['imgs']['front'];
+      $bookImg->back = $data['imgs']['back'];
+      $bookImg->left = $data['imgs']['left'];
+      $bookImg->inside = $data['imgs']['inside'];
+      $bookImg->save();
+    }
+
+    return response()->json(['message' => 'Book saved successfully']);
   }
 
   /**
@@ -75,8 +99,7 @@ class BookController extends Controller
    * @param  \App\Models\Book  $book
    * @return \Illuminate\Http\Response
    */
-  public function show(Book $book)
-  {
+  public function show(Book $book) {
     return new BookResource($book->loadMissing('author')->loadMissing('genre')->loadMissing('bookImage'));
   }
 
@@ -86,8 +109,7 @@ class BookController extends Controller
    * @param  \App\Models\Book  $book
    * @return \Illuminate\Http\Response
    */
-  public function edit(Book $book)
-  {
+  public function edit(Book $book) {
     //
   }
 
@@ -98,8 +120,7 @@ class BookController extends Controller
    * @param  \App\Models\Book  $book
    * @return \Illuminate\Http\Response
    */
-  public function update(UpdateBookRequest $request, Book $book)
-  {
+  public function update(UpdateBookRequest $request, Book $book) {
     //
   }
 

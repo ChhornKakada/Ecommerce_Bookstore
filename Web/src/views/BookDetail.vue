@@ -1,9 +1,12 @@
 <script>
-import { onMounted } from "vue";
 import bookApi from "@/libs/apis/book";
+// import local from "@/libs/apis/local";
+import local from "@/libs/apis/local"
+import { useCheckoutStore } from "../stores/CheckoutStore";
 export default {
   data() {
     return {
+      checkoutStore: useCheckoutStore(),
       bookId: this.$route.params.id,
       book: {},
       qty: 1,
@@ -27,13 +30,20 @@ export default {
 
     copyUrl() {
       navigator.clipboard.writeText(this.$route.fullPath);
-
       // Alert the copied text
       alert("Copied the text: " + this.$route.fullPath);
+    },
+
+    handleSubmit() {
+      const book = {
+        bookId: this.book.data.id,
+        qty: this.qty,
+        totalPrice: this.qty * parseFloat(this.book.data.price)
+      }
+      local.addBookToCart("Cart", book);
     }
   },
 
-  // beforeCreate || beforeMount
   async created() {
     this.book = await bookApi.detail(this.$route.params.id);
   },
@@ -139,7 +149,8 @@ export default {
           <!-- left -->
           <div class="w-[70%]">
             <div>
-              <button class="bg-[#0D0D0D] text-white w-full py-2">
+              <button @click="handleSubmit" 
+              class=" rounded-md bg-[#1B1E2B] active:w-[101%] active:border-2 active:border-black hover:border-2 text-[#F1F5F8] hover:shadow-lg  w-full py-2 ">
                 Add to Card -${{ book.data.price * qty }}
               </button>
             </div>
@@ -150,25 +161,25 @@ export default {
             <div class="mb-2">
               <p class="text-gray-600">Quantity</p>
             </div>
-            <div class="w-full py-1 border-2 border-[#0D0D0D] flex justify-evenly items-center">
+            <div class="w-full py-1 border-2 border-[#0D0D0D] flex justify-evenly items-center rounded-md">
               <button class="text-gray-600" @click="descrease">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="w-6 h-6">
+                  stroke="currentColor" class="w-6 h-6 active:w-7 active:h-7">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
                 </svg>
               </button>
               <p class="text-[1.2rem]"> {{ qty }}</p>
               <button class="text-gray-600" @click="increase">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="w-6 h-6">
+                  stroke="currentColor" class="w-6 h-6 active:w-7 active:h-7">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
               </button>
             </div>
           </div>
         </div>
+        <!-- {{ checkoutStore.cart[1].totalPrice }} -->
       </div>
-
     </div>
 
   </div>

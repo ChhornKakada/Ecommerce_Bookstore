@@ -1,4 +1,3 @@
-import { useRoute } from "vue-router";
 
 var auth = {
   async register(user) {

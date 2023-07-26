@@ -1,11 +1,13 @@
 <script>
 import Login from "../components/auth/Login.vue";
 import Register from "../components/auth/Register.vue";
+import { useAuthStore } from "../stores/AuthStore";
 
 export default {
   data() {
     return {
       isLogin: true,
+      authStore: useAuthStore()
     };
   },
   methods: {

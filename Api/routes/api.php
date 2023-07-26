@@ -3,6 +3,8 @@
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,22 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-// protected routes
-// Route::middleware(['cors'])->group(['middleware' => ['auth:sanctum']], function () {
-//     Route::post('/logout', [AuthController::class, 'logout']);
-// });
-
-// // public routes
-// Route::middleware(['cors'])->group([], function () {
-//     Route::resource('/genres', GenreController::class);
-//     Route::resource('/books', BookController::class);
-//     Route::post('/register', [AuthController::class, 'register']);
-//     Route::post('/login', [AuthController::class, 'login']);
-// });
-
-// // Route outside the group
-// Route::get('/books/search', [BookController::class, 'searchByAuthor'])->name('books.search');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Protected routes
 Route::middleware(['cors', 'auth:sanctum'])->group(function () {
@@ -41,8 +30,11 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
 
 // Public routes
 Route::middleware('cors')->group(function () {
-    Route::resource('/genres', GenreController::class);
-    Route::resource('/books', BookController::class);
+    Route::apiResource('/genres', GenreController::class);
+    Route::apiResource('/books', BookController::class);
+    Route::apiResource('/orders', OrderController::class);
+    Route::apiResource('/roles', RoleController::class);
+
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 });

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +19,10 @@ class DatabaseSeeder extends Seeder
 			GenreSeeder::class,
 			AuthorSeeder::class,
 			BookSeeder::class,
-			RoleSeeder::class
+			RoleSeeder::class,
+            PaymentMethodSeeder::class,
+            ShippingCompanySeeder::class,
+            UserSeeder::class
 		]);
 	}
 }

@@ -10,6 +10,7 @@ module.exports = {
   plugins: [],
   theme: {
     screens: {
+      '2sm': '512px',
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
 

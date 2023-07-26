@@ -17,13 +17,13 @@ class CreatePaymentsTable extends Migration
       $table->id();
       $table->unsignedBigInteger('payment_mothod_id');
       $table->foreign('payment_mothod_id')->references('id')->on('payment_methods');
-      $table->string('cardholder_name');
-      $table->string('card_number');
-      $table->string('email');
-      $table->integer('month');
-      $table->integer('year');
-      $table->integer('cvv');
-    //   $table->timestamps();
+      $table->string('cardholder_name')->nullable();
+      $table->string('card_number')->nullable();
+      $table->string('email')->nullable();
+      $table->integer('month')->nullable();
+      $table->integer('year')->nullable();
+      $table->integer('cvv')->nullable();
+      $table->timestamps();
     });
   }
 

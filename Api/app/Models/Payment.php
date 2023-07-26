@@ -9,6 +9,8 @@ class Payment extends Model
 {
   use HasFactory;
 
+  public $timestamps = false;
+
   public function paymentMethod() {
     return $this->belongsTo(Payment_method::class);
   }

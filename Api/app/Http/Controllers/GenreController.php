@@ -7,6 +7,7 @@ use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
 use App\Http\Resources\GenreCollection;
 use App\Http\Resources\GenreResource;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Ramsey\Uuid\Type\Integer;
 use Illuminate\Http\Request;
 
@@ -44,9 +45,18 @@ class GenreController extends Controller
    * @param  \App\Http\Requests\StoreGenreRequest  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreGenreRequest $request)
+  public function store(Request $request)
   {
-    //
+    $data = $request->json()->all();
+
+    // create new book
+    $genre = new Genre();
+    $genre->type = $data['type'];
+    $genre->imgUrl = $data['imgUrl'];
+    $genre->desc = $data['desc'];
+    $genre->save();
+
+    return response()->json(['message' => 'Genre saved successfully']);
   }
 
   /**

@@ -18,7 +18,6 @@ class AuthController extends Controller
     ]);
 
     // $role = 2;
-
     $user = User::create([
       'name' => $fields["name"],
       'email' => $fields["email"],
@@ -59,7 +58,7 @@ class AuthController extends Controller
     if (!$user || !Hash::check($fields["password"], $user->password)) {
       return response
       ([
-        'message' => 'Bad creds'
+        'message' => 'Email or Password is invalid.'
       ], 401);
     }
 

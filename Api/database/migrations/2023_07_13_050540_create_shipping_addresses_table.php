@@ -21,8 +21,8 @@ class CreateShippingAddressesTable extends Migration
       $table->string('city');
       $table->string('country');
       $table->string('zip_code');
-      $table->string('optional');
-      $table->string('apartment');
+      $table->string('optional')->nullable();
+      $table->string('apartment')->nullable();
     //   $table->timestamps();
     });
   }
