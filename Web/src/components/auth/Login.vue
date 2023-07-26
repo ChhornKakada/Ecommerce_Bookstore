@@ -20,7 +20,7 @@ export default {
   methods: {
     async login(e) {
       e.preventDefault();
-      var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/login`;
+      var url = `${process.env.API_URL}/api/login`;
 
       fetch(url, {
         method: "POST",
