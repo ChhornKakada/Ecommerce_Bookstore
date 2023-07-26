@@ -9,18 +9,18 @@ export default {
       cards: [
         {
           title: 'Our Mission',
-          text: 'Our mission is simple yet powerful – to promote a thriving reading culture among teenagers in Cambodia. We firmly believe that literacy is the foundation for personal growth and development. By fostering a love for reading, we aim to equip Cambodian youth with invaluable skills that will benefit them throughout their lives.',
-          imgPath: '../assets/images/mission.png'
+          text: 'Our mission is simple yet powerful - to promote a thriving reading culture among teenagers in Cambodia. We firmly believe that literacy is the foundation for personal growth and development. By fostering a love for reading, we aim to equip Cambodian youth with invaluable skills that will benefit them throughout their lives.',
+          imgPath: '../../assets/images/mission.png'
         },
         {
           title: 'Our Community',
           text: "We firmly believe that achieving our mission requires collaboration and unity. That's why we actively seek partnerships with schools, libraries, and organizations that share our dedication to education and literacy. By working together with the community, we aim to create a nurturing environment where reading thrives and knowledge is accessible to all.",
-          imgPath: '../assets/images/earth.png'
+          imgPath: '../../assets/images/earth.png'
         },
         {
           title: 'Our Vision ',
           text: "Looking ahead, we envision a future where every Cambodian teenager embraces the habit of reading. We see a society where books are not only sources of knowledge but also tools of empowerment and inspiration. Through our collective efforts, we aspire to contribute to a generation of well-informed, imaginative, and empathetic individuals who will shape a better tomorrow.",
-          imgPath: '../assets/images/visionary.png'
+          imgPath: '../../assets/images/visionary.png'
         }
       ]
     }
