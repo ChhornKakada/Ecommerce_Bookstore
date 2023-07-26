@@ -9,7 +9,7 @@ RUN php artisan cache:clear
 RUN php artisan config:clear
 RUN php artisan cache:clear
 RUN php artisan key:generate
-RUN php artisan jwt:secret
+# RUN php artisan jwt:secret
 
 
 CMD php artisan --host=0.0.0.0 serve
