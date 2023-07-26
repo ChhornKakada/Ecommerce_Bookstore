@@ -8,7 +8,7 @@ import EnvironmentPlugin from 'vite-plugin-environment'
 export default defineConfig({
   plugins: [
     vue(),
-    EnvironmentPlugin(['API_HOST', 'API_PORT'])
+    EnvironmentPlugin(['API_HOST', 'API_PORT', 'API_URL'])
   ],
   resolve: {
     alias: {

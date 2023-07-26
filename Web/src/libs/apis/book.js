@@ -1,8 +1,8 @@
 var book = {
   async all(number = 15, sortBy = "All") {
-    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?number=${number}`;
+    var url = `${process.env.API_URL}/api/books?number=${number}`;
     if (sortBy != "All") {
-      url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?number=${number}&sortBy=${sortBy}`;
+      url = `${process.env.API_URL}/api/books?number=${number}&sortBy=${sortBy}`;
     } 
     const res = await fetch(url, {
       method: "GET",
@@ -33,9 +33,9 @@ var book = {
     if (sortBy == "New Arrival") {
       sortBy = 'Latest'
     }
-    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?genreId[eq]=${genreId}&page=${pageNumber}&sortBy=${sortBy}`;
+    var url = `${process.env.API_URL}/api/books?genreId[eq]=${genreId}&page=${pageNumber}&sortBy=${sortBy}`;
     if (parseInt(genreId) === 0) {
-      url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books?page=${pageNumber}&sortBy=${sortBy}`;
+      url = `${process.env.API_URL}/api/books?page=${pageNumber}&sortBy=${sortBy}`;
       // alert(genreId)
     }
     const res = await fetch(url, {
@@ -51,7 +51,7 @@ var book = {
   },
 
   async detail(bookId) {
-    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/books/${bookId}`;
+    var url = `${process.env.API_URL}/api/books/${bookId}`;
     const res = await fetch(url, {
       method: "GET",
       headers: {

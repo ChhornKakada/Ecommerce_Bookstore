@@ -1,7 +1,7 @@
 
 var auth = {
   async register(user) {
-    var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/register`;
+    var url = `${process.env.API_URL}/api/register`;
     const res = await fetch(url, {
       method: "POST",
       headers: {

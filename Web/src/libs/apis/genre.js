@@ -1,6 +1,6 @@
 var genre = {
   async all(number = 15) {
-    const res = await fetch(`${process.env.API_HOST}:${process.env.API_PORT}/api/genres?number=${number}`, {
+    const res = await fetch(`${process.env.API_URL}/api/genres?number=${number}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json"
