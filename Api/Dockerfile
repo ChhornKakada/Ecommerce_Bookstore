@@ -1,15 +1,32 @@
-FROM lorisleiva/laravel-docker:8.2
-EXPOSE 8000
+FROM php:7.4-fpm
 
-COPY .  /var/www
-RUN rm -f composer.lock
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+
+
+# Set working directory
+WORKDIR /var/www
+COPY . /var/www/
+
 RUN composer install
-RUN cp .env.example .env
-RUN php artisan cache:clear
-RUN php artisan config:clear
-RUN php artisan cache:clear
-RUN php artisan key:generate
-# RUN php artisan jwt:secret
-
-
-CMD php artisan --host=0.0.0.0 serve
