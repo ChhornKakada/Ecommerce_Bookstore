@@ -15,7 +15,7 @@ export default {
       },
       paypal: {
         email: null,
-        cardholderName: null
+        password: null
       },
       checkoutStore: useCheckoutStore(),
       currentYear: new Date().getFullYear(),
@@ -41,7 +41,7 @@ export default {
     handleSubmit(e) {
       e.preventDefault(); 
       
-      var url = `${process.env.API_HOST}:${process.env.API_PORT}/api/orders`;
+      var url = `${process.env.API_URL}/api/orders`;
       var user = local.get('currectUser')
       var customerId = user.id
       var shippingCompany = local.get('shippingCompany')
@@ -143,7 +143,7 @@ export default {
   <!-- paypal -->
   <form @submit="handleSubmit" v-if="method === 'paypal'">
     <input type="email" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Email" v-model="paypal.email" />
-    <input type="text" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Card Number" v-model="paypal.cardholderName" />
+    <input type="password" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Card Number" v-model="paypal.password" />
     <button type="submit" class="text-center shadow-sm mt-8 hover:shadow-[#1B1E2B] border-2 w-full text-white tracking-wider bg-[#0D0D0D] py-4">
     Pay Now
   </button>

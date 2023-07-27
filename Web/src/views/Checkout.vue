@@ -256,6 +256,8 @@ export default {
       </div>
     </div>
   </div>
+
+  <Success/>
 </template>
 
 <style>

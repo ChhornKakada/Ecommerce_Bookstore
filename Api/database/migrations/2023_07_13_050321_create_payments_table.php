@@ -20,10 +20,11 @@ class CreatePaymentsTable extends Migration
       $table->string('cardholder_name')->nullable();
       $table->string('card_number')->nullable();
       $table->string('email')->nullable();
+      $table->string('password')->nullable();
       $table->integer('month')->nullable();
       $table->integer('year')->nullable();
       $table->integer('cvv')->nullable();
-      $table->timestamps();
+    //   $table->timestamps();
     });
   }
 

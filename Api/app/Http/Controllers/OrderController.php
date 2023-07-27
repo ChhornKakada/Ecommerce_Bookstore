@@ -48,15 +48,16 @@ class OrderController extends Controller
     if (isset($data['payment'])) {
       $tmpPayment = $data['payment'];
       if ($data['paymentMethodId'] == 1) {
+        $payment->cardholder_name = $tmpPayment['cardholderName'];
         $payment->card_number = $tmpPayment['cardNumber'];
         $payment->month = $tmpPayment['month'];
         $payment->year = $tmpPayment['year'];
         $payment->cvv = $tmpPayment['cvv'];
       } else {
         $payment->email = $tmpPayment['email'];
+        $payment->password = bcrypt($tmpPayment["password"]);
       }
       $payment->payment_mothod_id = $data['paymentMethodId'];
-      $payment->cardholder_name = $tmpPayment['cardholderName'];
     }
     $payment->save();
 
