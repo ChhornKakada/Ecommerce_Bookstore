@@ -20,33 +20,35 @@ class BookController extends Controller
    */
   public function index(Request $request)
   {
-    $filter = new BookService();
-    $filterItems = $filter->transform($request); // [['column], 'operation', 'value']
+    // $filter = new BookService();
+    // $filterItems = $filter->transform($request); // [['column], 'operation', 'value']
 
-    $number = $request->query('number');
-    $sortBy = $request->query('sortBy');
-    $books = [];
-    if ($sortBy == 'Latest') {
-      $books = Book::where($filterItems)->orderBy('id', 'desc');
-    } else if ($sortBy == 'popular') {
-      // ...
-    } else if ($sortBy == 'Trending') {
-      // ....
-    } else {
-      $books = Book::where($filterItems);
-    }
+    // $number = $request->query('number');
+    // $sortBy = $request->query('sortBy');
+    // $books = [];
+    // if ($sortBy == 'Latest') {
+    //   $books = Book::where($filterItems)->orderBy('id', 'desc');
+    // } else if ($sortBy == 'popular') {
+    //   // ...
+    // } else if ($sortBy == 'Trending') {
+    //   // ....
+    // } else {
+    //   $books = Book::where($filterItems);
+    // }
 
-    $paginatedBooks = $number ? $books->paginate($number) : $books->paginate();
-    $paginatedBooks = $paginatedBooks->appends($request->query());
+    // $paginatedBooks = $number ? $books->paginate($number) : $books->paginate();
+    // $paginatedBooks = $paginatedBooks->appends($request->query());
 
-    // filter the field of book
-    $bookCollection = $paginatedBooks->getCollection()->map(function ($book) {
-      return new BookResource($book->loadMissing('bookImage'));
-    });
+    // // filter the field of book
+    // $bookCollection = $paginatedBooks->getCollection()->map(function ($book) {
+    //   return new BookResource($book->loadMissing('bookImage'));
+    // });
 
-    $paginatedBooks->setCollection($bookCollection);
+    // $paginatedBooks->setCollection($bookCollection);
 
-    return $paginatedBooks;
+    // return $paginatedBooks;
+    $books = Book::all();
+    return $books;
   }
 
   /**
@@ -66,29 +68,29 @@ class BookController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request) {
-    // $data = $request->json()->all();
+    $data = $request->json()->all();
 
-    // // create new book
-    // $book = new Book();
-    // $book->title = $data['title'];
-    // $book->isbn = $data['isbn'];
-    // $book->published_date = $data['publishedDate'];
-    // $book->price = $data['price'];
-    // $book->desc = $data['desc'];
-    // $book->author_id = $data['authorId'];
-    // $book->genre_id = $data['genreId'];
-    // $book->save();
+    // create new book
+    $book = new Book();
+    $book->title = $data['title'];
+    $book->isbn = $data['isbn'];
+    $book->published_date = $data['publishedDate'];
+    $book->price = $data['price'];
+    $book->desc = $data['desc'];
+    $book->author_id = $data['authorId'];
+    $book->genre_id = $data['genreId'];
+    $book->save();
 
-    // // Create OrderDetails
-    // if (isset($data['imgs'])) {
-    //   $bookImg = new BookImage();
-    //   $bookImg->book_id = $book->id; // Set the order_id for the order detail
-    //   $bookImg->front = $data['imgs']['front'];
-    //   $bookImg->back = $data['imgs']['back'];
-    //   $bookImg->left = $data['imgs']['left'];
-    //   $bookImg->inside = $data['imgs']['inside'];
-    //   $bookImg->save();
-    // }
+    // Create OrderDetails
+    if (isset($data['imgs'])) {
+      $bookImg = new BookImage();
+      $bookImg->book_id = $book->id; // Set the order_id for the order detail
+      $bookImg->front = $data['imgs']['front'];
+      $bookImg->back = $data['imgs']['back'];
+      $bookImg->left = $data['imgs']['left'];
+      $bookImg->inside = $data['imgs']['inside'];
+      $bookImg->save();
+    }
 
     return response()->json(['message' => 'Book saved successfully']);
   }

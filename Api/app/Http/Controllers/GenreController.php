@@ -47,14 +47,14 @@ class GenreController extends Controller
    */
   public function store(Request $request)
   {
-    // $data = $request->json()->all();
+    $data = $request->json()->all();
 
-    // // create new book
-    // $genre = new Genre();
-    // $genre->type = $data['type'];
-    // $genre->imgUrl = $data['imgUrl'];
-    // $genre->desc = $data['desc'];
-    // $genre->save();
+    // create new book
+    $genre = new Genre();
+    $genre->type = $data['type'];
+    $genre->imgUrl = $data['imgUrl'];
+    $genre->desc = $data['desc'];
+    $genre->save();
 
     return response()->json(['message' => 'Genre saved successfully']);
   }
