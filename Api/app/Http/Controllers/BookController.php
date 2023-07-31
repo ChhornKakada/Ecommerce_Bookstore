@@ -66,29 +66,29 @@ class BookController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request) {
-    $data = $request->json()->all();
+    // $data = $request->json()->all();
 
-    // create new book
-    $book = new Book();
-    $book->title = $data['title'];
-    $book->isbn = $data['isbn'];
-    $book->published_date = $data['publishedDate'];
-    $book->price = $data['price'];
-    $book->desc = $data['desc'];
-    $book->author_id = $data['authorId'];
-    $book->genre_id = $data['genreId'];
-    $book->save();
+    // // create new book
+    // $book = new Book();
+    // $book->title = $data['title'];
+    // $book->isbn = $data['isbn'];
+    // $book->published_date = $data['publishedDate'];
+    // $book->price = $data['price'];
+    // $book->desc = $data['desc'];
+    // $book->author_id = $data['authorId'];
+    // $book->genre_id = $data['genreId'];
+    // $book->save();
 
-    // Create OrderDetails
-    if (isset($data['imgs'])) {
-      $bookImg = new BookImage();
-      $bookImg->book_id = $book->id; // Set the order_id for the order detail
-      $bookImg->front = $data['imgs']['front'];
-      $bookImg->back = $data['imgs']['back'];
-      $bookImg->left = $data['imgs']['left'];
-      $bookImg->inside = $data['imgs']['inside'];
-      $bookImg->save();
-    }
+    // // Create OrderDetails
+    // if (isset($data['imgs'])) {
+    //   $bookImg = new BookImage();
+    //   $bookImg->book_id = $book->id; // Set the order_id for the order detail
+    //   $bookImg->front = $data['imgs']['front'];
+    //   $bookImg->back = $data['imgs']['back'];
+    //   $bookImg->left = $data['imgs']['left'];
+    //   $bookImg->inside = $data['imgs']['inside'];
+    //   $bookImg->save();
+    // }
 
     return response()->json(['message' => 'Book saved successfully']);
   }
