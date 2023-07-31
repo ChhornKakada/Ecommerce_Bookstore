@@ -5,3 +5,70 @@
     {{ books.data[(i*j) - 1].title }}
   </div>
 </div>
+
+
+<template>
+  <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
+    <div>asdf</div>
+
+    <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
+    <div  class="bg-white p-6 rounded-lg shadow-md w-[50%] border-2 opacity-100">
+      <!-- :style="{ width: popupWidth }" -->
+      <!-- Your popup content goes here -->
+      <!-- <slot></slot> -->
+      <div>
+        <p>Hello bro</p>
+      </div>
+      <button @click="close" class="mt-4 px-4 py-2 bg-gray-800 text-white rounded-md">
+        Close
+      </button>
+    </div>
+  </div>
+</template>
+
+
+
+checkout(paymentFromChile) {
+      // alert(paymentFromChile.paymentMethodId);
+      var url = `${process.env.API_URL}/api/orders`;
+
+      var user = local.get('currectUser')
+      var customerId = user.id
+
+      var shippingCompany = local.get('shippingCompany')
+      const paymentMethodId = paymentFromChile.paymentMethodId
+      const payment = paymentFromChile.payment
+
+      var shippingAddress = local.get('shipping')
+      var orderDetails = local.get('Cart')
+      var totalPrice = 0
+      for (let ele of orderDetails) {
+        totalPrice += ele.totalPrice
+      }
+      var priceAfterDiscount = totalPrice
+
+      console.log(JSON.stringify({ customerId, shippingCompany, shippingAddress, paymentMethodId, payment, orderDetails, totalPrice, priceAfterDiscount }));
+      fetch(url, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ customerId, shippingCompany, shippingAddress, paymentMethodId, payment, orderDetails, totalPrice, priceAfterDiscount })
+      }).then(
+        async res => {
+          console.log(res.status)
+          if (res.status >= 300 || res.status < 200) {
+            const data = await res.json();
+            // this.errorLogin = data.message
+            // console.log(data);
+          } else {
+            const data = await res.json();
+            console.log(data);
+            // this.clearCheckoutInLocal()
+            this.showPopup = true
+            this.checkoutStore.setAlreadyPaid(true)
+          }
+        }
+      )
+    },

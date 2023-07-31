@@ -3,13 +3,33 @@ import { defineStore } from "pinia";
 export const useCheckoutStore = defineStore('checkoutStore', {
   state: () => ({
     state: 'discount',
-    cart: [],
     isShippingAlready: false,
     isPaymentAlready: false,
     notYetCompleteMsg: null,
-    isCartEmpty: false
+    isCartEmpty: false,
+    alreadyPaid: false,
+    justCheckoutData: Object(),
+
   }),
   actions: {
+
+    setJustCheckoutData(data) {
+      this.justCheckoutData.name = data.name
+    },
+
+    setAlreadyPaid(boolean) {
+      this.alreadyPaid = boolean
+    },
+
+    reset(){
+      this.state = 'discount',
+      this.isShippingAlready = false,
+      this.isPaymentAlready = false,
+      this.notYetCompleteMsg = null,
+      this.isCartEmpty = false,
+      this.alreadyPaid = false
+    },
+
     setCartEmplty(boolean) {
       this.isCartEmpty = boolean
     },

@@ -12,7 +12,7 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      alert(this.shippingCompany)
+      // alert(this.shippingCompany)
       local.set('shippingCompany', this.shippingCompany)
       this.checkoutStore.resetNotYetCompleteMsg()
       this.checkoutStore.toggleIsPaymentAlready(true)

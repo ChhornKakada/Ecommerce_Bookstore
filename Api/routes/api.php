@@ -34,6 +34,7 @@ Route::middleware('cors')->group(function () {
     Route::apiResource('/books', BookController::class);
     Route::apiResource('/orders', OrderController::class);
     Route::apiResource('/roles', RoleController::class);
+    Route::apiResource('/users', UserCon::class);
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);

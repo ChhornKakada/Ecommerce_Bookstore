@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-
+<!-- html -->
 <template>
   <!-- cancel -->
   <div class="flex justify-end mr-4 mt-4">
@@ -78,16 +78,16 @@ export default {
     <div class="w-full lg:w-1/2">
       <div class="2xl:pr-[20%] w-full">
         <!-- title -->
-        <div class="flex justify-between items-start  gap-4">
+        <div class="flex justify-between items-start gap-4">
           <div class="">
             <h1 class="font-semibold  text-[1.5rem] xl:text-[1.6rem] 2xl:text-[1.7rem]">{{ book.data.title }}</h1>
             <div class="hidden lg:block text-[1.2rem]  justify-end font-medium">
               <p class="text-[1.5rem]">${{ book.data.price }}</p>
             </div>
           </div>
-          <div class="" @click="copyUrl">
+          <div class=" mt-2" @click="copyUrl">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
+              stroke="currentColor" class="w-6 h-6 xl:w-[25.6px] xl:h-[25.6px] 2xl:w-[27.2px] 2xl:h-[27.2px]">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
@@ -186,3 +186,6 @@ export default {
 </template>
 
 
+<!-- css -->
+<style>
+</style>

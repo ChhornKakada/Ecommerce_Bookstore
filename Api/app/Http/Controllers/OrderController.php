@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order_detail;
 use App\Models\Payment;
 use App\Models\Order;
@@ -100,7 +101,10 @@ class OrderController extends Controller
       }
     }
 
-    return response()->json(['message' => 'order saved successfully']);
+    return response()->json(
+        ['message' => 'order saved successfully',
+            'orderId' => $order->id
+    ]);
   }
 
   /**
@@ -111,7 +115,7 @@ class OrderController extends Controller
    */
   public function show(Order $order)
   {
-    //
+    return new OrderResource($order->loadMissing('user'));
   }
 
   /**

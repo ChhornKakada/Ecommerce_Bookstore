@@ -4,6 +4,7 @@ import Shipping from '../components/checkout/Shipping.vue'
 import Address from '../components/checkout/Address.vue'
 import EmptyCart from '../components/checkout/EmptyCart.vue'
 import Payment from '../components/checkout/Payment.vue'
+import Popup from '../components/checkout/Popup.vue'
 import { useCheckoutStore } from '../stores/CheckoutStore'
 import local from '@/libs/apis/local'
 import bookApi from '@/libs/apis/book'
@@ -11,7 +12,7 @@ import bookApi from '@/libs/apis/book'
 
 export default {
   components: {
-    Discount, Address, Shipping, Payment, EmptyCart
+    Discount, Address, Shipping, Payment, EmptyCart, Popup
   },
 
   data() {
@@ -19,7 +20,10 @@ export default {
       checkoutStore: useCheckoutStore(),
       cart: [],
       lastPath: null,
-      isLoading: false
+      isLoading: false,
+      showPopup: false,
+      checkoutData: {},
+      emptyCartMsg: null
     }
   },
 
@@ -31,6 +35,7 @@ export default {
       }
       return total.toFixed(2);
     },
+
     isCartEmpty() {
       if (this.cart.length == 0) {
         this.checkoutStore.setCartEmplty(true)
@@ -43,6 +48,84 @@ export default {
   },
 
   methods: {
+
+    resetCheckout() {
+      this.cart = []
+      local.remove('Cart')
+      local.remove('shipping')
+      this.checkoutStore.reset()
+    },
+
+    checkout(paymentFromChile) {
+
+      if (this.cart.length == 0) {
+        this.emptyCartMsg = 'Nothing to checkout!'
+      } else {
+        // alert(paymentFromChile.paymentMethodId);
+        var url = `${process.env.API_URL}/api/orders`;
+
+        var user = local.get('currectUser')
+        var customerId = user.id
+
+        var shippingCompany = local.get('shippingCompany')
+        const paymentMethodId = paymentFromChile.paymentMethodId
+        const payment = paymentFromChile.payment
+
+        var shippingAddress = local.get('shipping')
+        var orderDetails = local.get('Cart')
+        var totalPrice = 0
+        for (let ele of orderDetails) {
+          totalPrice += ele.totalPrice
+        }
+        var priceAfterDiscount = totalPrice
+
+        // console.log(JSON.stringify({ customerId, shippingCompany, shippingAddress, paymentMethodId, payment, orderDetails, totalPrice, priceAfterDiscount }));
+        fetch(url, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ customerId, shippingCompany, shippingAddress, paymentMethodId, payment, orderDetails, totalPrice, priceAfterDiscount })
+        }).then(
+          async res => {
+            console.log(res.status)
+            if (res.status >= 300 || res.status < 200) {
+              const data = await res.json();
+              // this.errorLogin = data.message
+              console.log(data);
+            } else {
+              const data = await res.json();
+              console.log(data);
+              this.checkoutData.customer = user.name
+              this.checkoutData.orderId = data.orderId
+              this.checkoutData.shippingAddress = shippingAddress
+              this.checkoutData.shippingCpn = shippingCompany == 1 ? 'ZTO' : 'GNT'
+              this.checkoutData.orderDetails = this.cart
+              this.checkoutData.totalPrice = totalPrice
+              if (paymentMethodId == 1) {
+                this.checkoutData.paymentMethod = 'Credit'
+                this.checkoutData.cardNumber = payment.cardNumber
+              } else {
+                this.checkoutData.paymentMethod = 'Paypal'
+                this.checkoutData.cardNumber = payment.email
+              }
+              this.showPopup = true
+              this.emptyCartMsg = null
+              // this.clearCheckoutInLocal()  
+              this.resetCheckout()
+              // this.$router.push(
+              //   `/thank/${data.orderId}` 
+              // );
+              // this.checkoutStore.setAlreadyPaid(true)
+            }
+          }
+        )
+      }
+
+
+    },
+
     cancel() {
       const link = this.lastPath ? this.lastPath : '/'
       this.$router.push(link);
@@ -144,7 +227,8 @@ export default {
           <div v-if="!isCartEmpty">
             <p class="pb-6">
               Not ready to checkout?
-              <RouterLink to="/shop" class="text-[#1D4ED8] font-medium hover:underline">Continue shopping</RouterLink>
+              <RouterLink to="/shop/genre/0?page=1" class="text-[#1D4ED8] font-medium hover:underline">Continue shopping
+              </RouterLink>
             </p>
 
             <!-- a book -->
@@ -177,7 +261,7 @@ export default {
 
 
                     <div class="flex justify-between items-center">
-                      <p class="text-[2rem] font-semibold">${{ book.quantity.totalPrice }}</p>
+                      <p class="text-[2rem] font-semibold">${{ book.quantity.totalPrice.toFixed(2) }}</p>
                       <p class="text-gray-500">By <span class="font-medium">{{ book.author }}</span> </p>
                     </div>
                   </div>
@@ -187,13 +271,20 @@ export default {
                       <p class="hover:underline text-red-500 font-medium">Remove</p>
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
           <!-- empty card -->
           <div v-else>
+            <div v-if="emptyCartMsg != null" class=" text-red-500 flex gap-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                <path fill-rule="evenodd"
+                  d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                  clip-rule="evenodd" />
+              </svg>
+              <p>{{ emptyCartMsg }}</p>
+            </div>
             <EmptyCart />
           </div>
         </div>
@@ -236,7 +327,7 @@ export default {
             <button :class="{ selected: checkoutStore.state === 'payment' }" @click="handlePayment"
               class="hover:underline">Payment</button>
           </div>
-          <div  class="mb-12 text-red-500 text-[1rem] font-normal">
+          <div class="mb-12 text-red-500 text-[1rem] font-normal">
             <div v-if="checkoutStore.notYetCompleteMsg != null" class="flex gap-4 items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd"
@@ -252,12 +343,14 @@ export default {
 
         <Address v-if="checkoutStore.state === 'address'" />
         <Shipping v-if="checkoutStore.state === 'shipping'" />
-        <Payment v-if="checkoutStore.state === 'payment'" />
+        <Payment v-if="checkoutStore.state === 'payment'" @checkout="checkout" />
       </div>
     </div>
   </div>
 
-  <Success/>
+  <div v-if="showPopup">
+    <Popup @closePopup="showPopup = false" :data="checkoutData" />
+  </div>
 </template>
 
 <style>

@@ -1,7 +1,7 @@
 <script>
-import HeaderBox from '../homePage/HeaderBox.vue'
+// import HeaderBox from '../homePage/HeaderBox.vue'
 export default {
-  components: { HeaderBox }
+  // components: { HeaderBox }
 }
 </script>
 

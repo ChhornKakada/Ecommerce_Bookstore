@@ -45,6 +45,11 @@ const router = createRouter({
       name: 'book-detail',
       component: BookDetail,
     },
+    {
+      path: '/thank/:id',
+      name: 'thank-order',
+      component: () => import('../components/checkout/Popup.vue')
+    },
   ]
 })
 
