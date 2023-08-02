@@ -59,7 +59,7 @@ export default {
 
 
 <template>
-  <header class="shadow-lg bg-white w-full sticky top-0">
+  <header class="shadow-lg bg-white w-full sticky opacity-100 top-0">
     <nav v-show="simpleShow" class="flex w-[80%] text-[1.3rem] tracking-widest pt-4 mx-auto justify-between">
       <!-- left side -->
       <div class="md:flex md:w-4/5 lg:w-[70%]">

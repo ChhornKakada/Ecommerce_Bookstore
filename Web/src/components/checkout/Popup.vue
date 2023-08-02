@@ -125,7 +125,7 @@
                 <p v-else class="font-semibold">Summary ({{ data.orderDetails.length }} items)</p>
               </div>
               <div class="py-4 font-semibold">You cart</div>
-              <div class="overflow-auto">
+              <div class="overflow-auto h-[400px] pr-4">
                 <div v-for="book in data.orderDetails" :key="book">
                   <div class="flex w-full gap-8 border-b-2 pb-4 mb-6">
                     <div class="w-[25%] md:w-[150px]">
