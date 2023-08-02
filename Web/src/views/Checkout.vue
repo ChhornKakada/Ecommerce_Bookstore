@@ -108,7 +108,7 @@ export default {
                 this.checkoutData.cardNumber = payment.cardNumber
               } else {
                 this.checkoutData.paymentMethod = 'Paypal'
-                this.checkoutData.cardNumber = payment.email
+                this.checkoutData.email = payment.email
               }
               this.showPopup = true
               this.emptyCartMsg = null
@@ -122,8 +122,6 @@ export default {
           }
         )
       }
-
-
     },
 
     cancel() {
