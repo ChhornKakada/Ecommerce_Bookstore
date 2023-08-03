@@ -5,13 +5,14 @@ export const useAuthStore = defineStore('authStore', {
   state: () => ({
     isAuth: false,
     isLogin: local.get('authToken') ? true : false,
-    isCheckout: false
+    isCheckout: false,
+    user: local.get('currectUser')
   }),
 
   getters: {
     loginValue(){
       var login = local.get('authToken') ? true : false
-      alert(login)
+      // alert(login)
       return login
     }
   },
@@ -19,6 +20,14 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     fromCheckout() {
       this.isCheckout = true
+    },
+
+    setUser(user) {
+      this.user = user
+    },
+
+    resetUser() {
+      this.user = null
     },
 
     isLoginOrNot() {
@@ -35,6 +44,7 @@ export const useAuthStore = defineStore('authStore', {
 
     notYetLogin() {
       this.isLogin = false
+      this.user = null
     },
 
     toggleIsAuth(boolean) {

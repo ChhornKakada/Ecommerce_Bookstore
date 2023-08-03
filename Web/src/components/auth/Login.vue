@@ -40,6 +40,7 @@ export default {
             const data = await res.json();
             local.set('authToken', data.token);
             local.set('currectUser', data.user);
+            this.authStore.setUser(data.user)
             this.authStore.alreadyLogin()
             if (this.authStore.isCheckout === true) {
               this.checkoutStore.goToCheckout();

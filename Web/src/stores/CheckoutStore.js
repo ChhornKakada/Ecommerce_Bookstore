@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import local from "../libs/apis/local";
 
 export const useCheckoutStore = defineStore('checkoutStore', {
   state: () => ({
@@ -9,9 +10,23 @@ export const useCheckoutStore = defineStore('checkoutStore', {
     isCartEmpty: false,
     alreadyPaid: false,
     justCheckoutData: Object(),
-
+    qtyInCart: local.get('Cart').length
   }),
+
   actions: {
+
+    updateCartQty() {
+      const data = local.get('Cart')
+      this.qtyInCart = data.length
+    },
+
+    addToCart(data) {
+      this.cart.push(data)
+    },
+
+    increaseNumberInCart(number) {
+      this.numberInCart += number
+    },
 
     setJustCheckoutData(data) {
       this.justCheckoutData.name = data.name

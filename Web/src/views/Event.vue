@@ -1,5 +1,7 @@
 <template>
   <div>
-    This is a event page.
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </template>

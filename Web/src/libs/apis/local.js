@@ -51,6 +51,10 @@ var local = {
     } 
   }, 
 
+  numberOfCart() {
+    return local.get('Cart').length
+  },
+
 
   // get the data
   get(key) {

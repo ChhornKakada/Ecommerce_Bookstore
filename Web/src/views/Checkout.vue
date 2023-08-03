@@ -133,8 +133,10 @@ export default {
     async remove(bookId) {
       // remove in localstorage
       local.removeBookFromCart('Cart', bookId)
+      this.checkoutStore.increaseNumberInCart(-1)
       // remove in UI
       this.cart = this.cart.filter((book) => book.quantity.bookId !== bookId)
+      this.checkoutStore.updateCartQty()
     },
 
     // increase book quantity

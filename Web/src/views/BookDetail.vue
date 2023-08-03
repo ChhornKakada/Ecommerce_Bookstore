@@ -41,6 +41,7 @@ export default {
         totalPrice: this.qty * parseFloat(this.book.data.price)
       }
       local.addBookToCart("Cart", book);
+      this.checkoutStore.updateCartQty()
     }
   },
 

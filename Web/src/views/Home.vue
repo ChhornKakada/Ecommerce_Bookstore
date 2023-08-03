@@ -56,9 +56,9 @@ export default {
 <template>
   <main class="">
     <!-- cover -->
-    <div class="relative">
+    <div class="relative z-15">
       <img src="../assets/images/cover.png"
-        class="w-full sm:aspect-[9/3.5] object-cover shadow-2xl h-[246px] sm:h-auto" />
+        class="w-full sm:aspect-[9/3.5] object-cover shadow-2xl h-[246px] sm:h-auto " />
       <h1
         class="hover:bg-opacity-90 absolute sm:text-xl md:text-2xl lg:text-3xl px-6 py-1 bg-opacity-60 bg-white text-center rounded-lg text-gray-600 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         Explore, Escape, Engage - Your Literary Journey Starts Here!
