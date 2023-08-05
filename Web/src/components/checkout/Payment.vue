@@ -102,7 +102,7 @@ export default {
     <div v-if="method === 'paypal'">
       <input type="email" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Email"
         v-model="paypal.email" />
-      <input type="password" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Card Number"
+      <input type="password" required class="mt-4 w-full py-3 border border-black pl-4" placeholder="Password"
         v-model="paypal.password" />
     </div>
 

@@ -10,14 +10,15 @@ export const useCheckoutStore = defineStore('checkoutStore', {
     isCartEmpty: false,
     alreadyPaid: false,
     justCheckoutData: Object(),
-    qtyInCart: local.get('Cart').length
+    qtyInCart: local.getLength('Cart')
   }),
 
   actions: {
 
     updateCartQty() {
-      const data = local.get('Cart')
-      this.qtyInCart = data.length
+      // const data = local.get('Cart')
+      // this.qtyInCart = data.length
+      this.qtyInCart = local.getLength('Cart')
     },
 
     addToCart(data) {

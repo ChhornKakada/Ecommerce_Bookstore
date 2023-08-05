@@ -56,9 +56,21 @@ var local = {
   },
 
 
+  getLength(data) {
+    let result = this.get(data)
+    console.log(result);
+    let n = 0;
+    if (result != null) {
+      n = result.length
+    }
+    return n
+  },
+
+
   // get the data
   get(key) {
     var data = localStorage.getItem(key);
+    console.log(data);
     // alert(key + ": " + data)
     return JSON.parse(data);
   },
