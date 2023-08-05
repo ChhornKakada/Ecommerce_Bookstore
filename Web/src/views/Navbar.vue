@@ -100,9 +100,9 @@ export default {
           <div class="hover:text-[#FF0000] hover:underline">
             <RouterLink to="/about" @click="open">About</RouterLink>
           </div>
-          <div class="hover:text-[#FF0000] hover:underline">
+          <!-- <div class="hover:text-[#FF0000] hover:underline">
             <RouterLink to="/event" @click="open">Event</RouterLink>
-          </div>
+          </div> -->
           <div class="hover:text-[#FF0000] hover:underline">
             <RouterLink to="/contact" @click="open">Contact</RouterLink>
           </div>

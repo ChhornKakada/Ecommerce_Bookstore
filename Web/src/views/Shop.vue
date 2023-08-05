@@ -167,7 +167,7 @@ export default {
               class="grid grid-rows grid-flow-col rounded-lg p-2 shadow-md overflow-auto gap-[20px] mb-10 border-red-500">
               <div v-for="j in col" :key="j"
                 class="w-[180px] xl:w-[200px] 2xl:w-[220px] mb-2 border-green-500 hover:text-blue-700">
-                <div v-if="(i - 1) * col + (j - 1) < books.data.length" @click="
+                <div v-if="(i - 1) * col + (j - 1) < books.per_page" @click="
                   goToBookDetail(books.data[(i - 1) * col + (j - 1)].id)
                   ">
                   <img :src="books.data[(i - 1) * col + (j - 1)].imgs.front" :alt="books.data[(i - 1) * col + (j - 1)].title"
